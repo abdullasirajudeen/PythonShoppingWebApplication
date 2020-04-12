@@ -1,11 +1,18 @@
 
+/*--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+--*/
+
 html,
 body {
     padding: 0;
     margin: 0;
     background: #fff;
     letter-spacing: 1px;
-    font-family: 'Sunflower', sans-serif;
+font-family: 'Sunflower', sans-serif;
 }
 
 body a {
@@ -81,10 +88,6 @@ ul {
 }
 .clr {
     color: #fff;
-}
-
-.clrred {
-    color: #ea1d5d;
 }
 /*-- header --*/
 
