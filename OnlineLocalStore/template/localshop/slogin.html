@@ -1,0 +1,50 @@
+{% extends 'localshop/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="inner_page-banner one-img">
+      </div>
+      <!--//banner -->
+      <!-- short -->
+      <div class="using-border py-3">
+         <div class="inner_breadcrumb  ml-4">
+            <ul class="short_ls">
+               <li>
+                  <a href="index.html">Home</a>
+                  <span>/ /</span>
+               </li>
+               <li>store_login</li>
+            </ul>
+         </div>
+      </div>
+      <!-- //short-->
+      <!--//banner -->
+      <!--Typography-->
+      <section class="inner-pages py-5">
+         <div class="container py-xl-5 py-sm-3">
+               <h3 class="typo-main-heading mb-lg-4 mb-3 pr-3 pb-1">Login</h3>
+               <form action="" method="post">
+                   {% csrf_token %}
+                  <div class="form-group row">
+                     <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                     <div class="col-sm-10">
+                        <input type="email" class="form-control" name="username" placeholder="Email">
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                     <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+                     <div class="col-sm-10">
+                        <input type="password" class="form-control" name="password" placeholder="Password">
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                     <div class="col-sm-10">
+                        <button type="submit" class="btn btn-primary">Log in</button>
+                     </div>
+                  </div>
+               </form>
+           
+              </div>
+            </section>
+
+       {% endblock %}

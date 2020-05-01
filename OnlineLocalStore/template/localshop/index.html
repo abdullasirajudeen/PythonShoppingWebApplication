@@ -19,7 +19,8 @@
                               <h5>Search The Best Product <br>Near You</h5>
                               <div class="bottom-info">
 
-                              <form  >
+                              <form action="search" method="post">
+                                 {% csrf_token %} 
                                     <input class="form-control mr-sm-2" type="search" placeholder="Type Product Name">                
                               </div>
                              
