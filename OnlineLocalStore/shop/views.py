@@ -52,6 +52,6 @@ def signup(request):
 def logout(request):
 	auth.logout(request)
 	return redirect('/')
-	
+
 def index(request):
-	return render(request,"shop/base.html")#temporary
+	return render(request,"shop/index.html")#temporary
