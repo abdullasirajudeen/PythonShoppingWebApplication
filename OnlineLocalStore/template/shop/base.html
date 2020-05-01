@@ -102,6 +102,7 @@
                            <a class="nav-link " href="typography.html">Typography</a>
                         </div>
                      </li>
+                     {% if not user.is_authenticated %}
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Store Keeper
@@ -111,6 +112,11 @@
                            <a class="nav-link " href="/shop/signup">Sign Up</a>
                         </div>
                      </li>
+                     {% else %}
+                     <li class="nav-item">
+                        <a href="/shop/logout" class="nav-link">Sign Out</a>
+                     </li>
+                     {% endif %}
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Product
