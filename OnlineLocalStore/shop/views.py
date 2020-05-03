@@ -9,6 +9,12 @@ class AddProductForm(ModelForm):
         model = products
         fields = ['pname','ptype','description', 'stock', 'price', 'img1', 'img2', 'img3', 'offer','offerprice']
 
+def single(request):
+	current_user = request.user
+	pid = request.GET['id']
+	product=products.objects.filter(owner=request.user,id=pid)
+	return render(request,"shop/single.html",{'product':product})
+
 def addproduct(request):
 	current_user = request.user
 	form = AddProductForm(request.POST,request.FILES or None)
