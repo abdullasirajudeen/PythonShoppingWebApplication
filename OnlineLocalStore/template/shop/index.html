@@ -1,7 +1,7 @@
  {% extends 'shop/base.html' %}
 {% load static %}
 {% block content %}
-    <section class="ftco-section">
+    <section class="inner-pages py-5">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-10 mb-5 text-center">
@@ -21,42 +21,50 @@
                 <div class="row">
                     <div class="col-md-6 col-lg-3 ftco-animate">
                     <div class="product">
-                        <a href="/farmers/addproduct" class="img-prod"><img class="img-fluid" src="{% static 'shop/plus.png' %}" alt="Colorlib Template">
+                        <a href="/shop/addproduct" class="img-prod"><img class="img-fluid" src="{% static 'shop/plus.png' %}" alt="Colorlib Template">
                             <div class="overlay"></div>
                         </a>
                         <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="addproduct">Add Product</a></h3>
+                            <h3><a href="/shop/addproduct">Add Product</a></h3>
                         </div>
                     </div>
                 </div>
                  {% for pro in product %} 
                     {% if pro.isactive == True %}
-                <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="#" class="img-prod"><img class="img-fluid" src="{{ pro.img.url}}" alt="Colorlib Template">
-                            {% if pro.offer %}
-                            <span class="status">{{ pro.offerprice }}on offer</span>
-                            {% endif %}
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="#">{{ pro.pname }}</a></h3>
-                            <div class="d-flex">
-                                <div class="pricing">
-                                    {% if pro.offer %}<p class="price"><span class="mr-2 price-dc">${{ pro.price }}</span><span class="price-sale">${{ pro.offerprice }}</span> </p>{% else %}<p class="price"><span class="price-sale">${{ pro.price }}</span> </p>{% endif %}
-                                </div>
-                            </div>
-                            <div class="bottom-area d-flex px-3">
-                                <div class="m-auto d-flex">
-                                    <a href="/farmers/productdetails?id={{ pro.id }}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                        <span><i class="ion-ios-menu"></i></span>
-                                    </a>
+
                                     
-                                </div>
-                            </div>
+                     <div class="col-lg-3 col-md-6  product-men women_two">
+                        <div class="product-toys-info">
+                           <div class="men-pro-item">
+                              <div class="men-thumb-item">
+                                 <img src="{{ pro.img1.url}}" class="img-thumbnail img-fluid" alt="">
+                                 <div class="men-cart-pro">
+                                    <div class="inner-men-cart-pro">
+                                       <a href="single.html" class="link-product-add-cart">Quick View</a>
+                                    </div>
+                                 </div>
+                                 <span class="product-new-top">New</span>
+                              </div>
+                              <div class="item-info-product">
+                                 <div class="info-product-price">
+                                    <div class="grid_meta">
+                                       <div class="product_price">
+                                          <h4>
+                                             <a href="single.html">{{ pro.pname }}</a>
+                                          </h4>
+                                          
+                                       </div>
+                                    </div>
+                                    <div class="grid-price mt-2">
+                                        <span class="money ">${% if pro.offer %}{{ pro.offerprice }}{% else %}{{ pro.price }}{% endif %}</span>
+                                    </div>
+                                 </div>
+                                
+                              </div>
+                           </div>
                         </div>
-                    </div>
-                </div>
+                     </div>
+                     
                 {% endif %}
                 {% endfor %}   
             </div>

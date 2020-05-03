@@ -1,8 +1,41 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from localShop.models import userProfile
-
+from .models import products
+from django.forms import ModelForm
 # Create your views here.
+class AddProductForm(ModelForm):
+    class Meta:
+        model = products
+        fields = ['pname','ptype','description', 'stock', 'price', 'img1', 'img2', 'img3', 'offer','offerprice']
+
+def addproduct(request):
+	current_user = request.user
+	form = AddProductForm(request.POST,request.FILES or None)
+	context={
+		'form':form
+		}
+	if request.method == 'POST':
+		
+		if form.is_valid():
+			instance = form.save(commit=False)
+			instance.owner = request.user
+			instance.save()
+			return redirect(r'/shop/index')
+		else:
+			form = AddProductForm(request.POST or None)
+			context={
+			'form':form
+			}
+			return render(request,"shop/addproduct.html",context)
+	else :
+		form = AddProductForm()
+		context={
+		'form':form
+		}
+		return render(request,"shop/addproduct.html",context)
+
+
 def login(request):
 	if request.method == 'POST':
 		password=request.POST['password']
@@ -54,4 +87,6 @@ def logout(request):
 	return redirect('/')
 
 def index(request):
-	return render(request,"shop/index.html")#temporary
+	current_user = request.user
+	product=products.objects.filter(owner=request.user)
+	return render(request,"shop/index.html",{'product':product})#temporary
