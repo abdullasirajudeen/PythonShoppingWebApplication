@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from .models import userProfile
+from shop.models import products
 
 # Create your views here.
 
@@ -30,9 +31,6 @@ def search(request):
 	except:
 		cat = 'All'	
 	trate=3
-
-	#current_user = request.user
-	#product=products.objects.filter(isactive=True)
-	#return render(request,"public/shop.html",{'product':product,'cat':cat})
-	return render(request,"localshop/search.html",{'trate':trate})
+	product=products.objects.filter(isactive=True)
+	return render(request,"localshop/search.html",{'product':product})
 
