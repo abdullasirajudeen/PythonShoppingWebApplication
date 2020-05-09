@@ -84,6 +84,7 @@
                                           <input type="hidden" name="cmd" value="_cart">
                                           <input type="hidden" name="add" value="1">
                                           <input type="hidden" name="toys_item" value="{{ pro.pname }}">
+                                          <input type="hidden" name="toys_id" value="{{ pro.id }}">
                                           <input type="hidden" name="amount" value="{% if pro.offer %}{{ pro.offerprice }}{% else %}{{ pro.price }}{% endif %}">
                                           <button type="submit" class="toys-cart ptoys-cart">
                                           <i class="fas fa-cart-plus"></i>
