@@ -36,11 +36,14 @@ def search(request):
 
 def checkout(request):
 	cart_items=[]
+	total=0
 	cart_no = request.GET['upload']
 	for i in range(1,int(cart_no)+1):
 		product=products.objects.get(id=request.GET['toys_item_'+str(i)])
 		if not product.offer:
 			cart_items.append((product,request.GET['quantity_'+str(i)],int(product.price)*int(request.GET['quantity_'+str(i)])))
+			total+=int(product.price)*int(request.GET['quantity_'+str(i)])
 		else:
 			cart_items.append((product,request.GET['quantity_'+str(i)],int(product.offerprice)*int(request.GET['quantity_'+str(i)])))
-	return render(request,"localshop/checkout.html",{'product':cart_items})
+			total+=int(product.offerprice)*int(request.GET['quantity_'+str(i)])
+	return render(request,"localshop/checkout.html",{'product':cart_items,'total':total})

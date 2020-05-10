@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="zxx">
    <head>
-      <title>Toys Shop an Ecommerce Category Bootstrap Responsive Web Template | Home :: w3layouts</title>
+      <title>Online Local Store</title>
       <!--meta tags -->
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -211,11 +211,11 @@
                         <div class="col-md-4 checkout-left-basket">
                            <h4>Continue to basket</h4>
                            <ul>
-                              <li>Product1 <i>-</i> <span>$675.00 </span></li>
-                              <li>Product2 <i>-</i> <span>$325.00 </span></li>
-                              <li>Product3 <i>-</i> <span>$405.00 </span></li>
-                              <li>Total Service Charges <i>-</i> <span>$55.00</span></li>
-                              <li>Total <i>-</i> <span>$1405.00</span></li>
+                              {% for pro in product %}  
+                              <li>{{ pro.0.pname }} <i>-</i> <span>${{ pro.2 }} </span></li>
+                               {% endfor %}
+                              
+                              <li>Total <i>-</i> <span>${{total}}</span></li>
                            </ul>
                         </div>
                         <div class="col-md-8 address_form">
