@@ -57,10 +57,10 @@ def checkout(request):
 
 def orderstatus(request):
 	user = request.user
-	#paymode=request.POST['optradio']
+	paymode=request.POST['optradio']
 	flag=False
 	address=user.first_name+user.last_name+","+user.userprofile.house+","+user.userprofile.town+","+user.userprofile.state+","+str(user.userprofile.pincode)+","+str(user.userprofile.phone)+","+user.email
-	print(address)
+	print(paymode)
 	try:
 		cartlist=cart.objects.filter(userid=request.user.id)
 	except cart.DoesNotExist:
@@ -69,7 +69,7 @@ def orderstatus(request):
 		with transaction.atomic():	
 			for item in cartlist:
 				product=products.objects.get(id=item.productid.id)
-				instance = orderDetails(userid=request.user,productid=product,quantity=item.quantity,address=address,paymode="paymode")
+				instance = orderDetails(userid=request.user,productid=product,quantity=item.quantity,address=address,paymode=paymode)
 				product.stock = F('stock')- item.quantity
 				try:
 					product.save()
@@ -157,3 +157,21 @@ def addtocart(request):
 			return HttpResponse('Added to Cart')
 		except:
 			return HttpResponse('Something went wrong, TryAgain')
+
+def shopsnearme(request):
+	try:
+		cat = request.GET['cat']
+	except:
+		cat = 'All'	
+	trate=3
+	shops=User.objects.filter(userprofile__is_store=True)
+	return render(request,"localshop/shopsnearme.html",{'product':shops})
+
+def shopproducts(request):
+	try:
+		sid = request.GET['id']
+	except:
+		print("no id got as parameter")
+	shop=User.objects.get(id=sid)
+	product=products.objects.filter(isactive=True,owner=shop)
+	return render(request,"localshop/shopproducts.html",{'product':product})

@@ -1,0 +1,71 @@
+{% extends 'localshop/base.html' %}
+{% load static %}
+{% block content %}
+      <!--//headder-->
+      <!-- banner -->
+      <div class="inner_page-banner one-img">
+      </div>
+      <!--//banner -->
+      <!-- short -->
+      <div class="using-border py-3">
+         <div class="inner_breadcrumb  ml-4">
+            <ul class="short_ls">
+               <li>
+                  <a href="index.html">Home</a>
+                  <span>/ /</span>
+               </li>
+               <li>Search</li>
+            </ul>
+         </div>
+      </div>
+      <!-- //short-->
+      <!--show Now-->  
+      <!--show Now-->  
+      <section class="contact py-lg-4 py-md-3 py-sm-3 py-3">
+         <div class="container-fluid py-lg-5 py-md-4 py-sm-4 py-3">
+            <h3 class="title text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">Search Result</h3>
+            <div class="row">
+
+                    {% for pro in product %}  
+                             
+                     <div class="col-lg-3 col-md-6  product-men women_two">
+                        <div class="product-toys-info">
+                           <div class="men-pro-item">
+                              <div class="men-thumb-item">
+                                 <img src="{{ pro.userprofile.img.url}}" class="img-thumbnail img-fluid" alt="">
+                                 <div class="men-cart-pro">
+                                    <div class="inner-men-cart-pro">
+                                       <a href="/shopproducts?id={{pro.id }}" class="link-product-add-cart">View Products</a>
+                                    </div>
+                                 </div>
+                                 <span class="product-new-top">New</span>
+                              </div>
+                              <div class="item-info-product">
+                                 <div class="info-product-price">
+                                    <div class="grid_meta">
+                                       <div class="product_price">
+                                          <h4>
+                                             <a href="single.html">{{ pro.userprofile.shop_name }}</a>
+                                          </h4>
+                                          <div class="grid-price mt-2">
+                                             
+                                          </div>
+                                       </div>
+                                       
+                                    </div>
+                                    <div class="toys single-item hvr-outline-out">
+                                        <a href="single.html">{{ pro.userprofile.town|truncatechars:30 }}</a>
+                                    </div>
+                                 </div>
+                                 <div class="clearfix"></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+
+                     
+                        {% endfor %}
+            </div>
+         </div>
+      </section>
+      {% endblock %}

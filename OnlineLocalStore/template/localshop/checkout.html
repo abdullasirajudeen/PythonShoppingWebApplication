@@ -224,50 +224,53 @@
                         </div>
                         <div class="col-md-8 address_form">
                            <h4>Add a new Details</h4>
-                           <form action="payment.html" method="post" class="creditly-card-form agileinfo_form">
+                           
                               <section class="creditly-wrapper wrapper">
                                  <div class="information-wrapper">
                                     <div class="first-row form-group">
                                        <div class="controls">
                                           <label class="control-label">Full name: </label>
-                                          <input class="billing-address-name form-control" type="text" name="name" placeholder="Full name">
+                                          <input class="billing-address-name form-control" type="text" name="name" placeholder="Full name" value="{{ user.first_name }} {{user.last_name }}" readonly>
                                        </div>
                                        <div class="card_number_grids">
                                           <div class="card_number_grid_left">
                                              <div class="controls">
                                                 <label class="control-label">Mobile number:</label>
-                                                <input class="form-control" type="text" placeholder="Mobile number">
+                                                <input class="form-control" type="text" placeholder="Mobile number"  value="{{ user.userProfile.phone }}" readonly>
                                              </div>
                                           </div>
                                           <div class="card_number_grid_right">
                                              <div class="controls">
                                                 <label class="control-label">Landmark: </label>
-                                                <input class="form-control" type="text" placeholder="Landmark">
+                                                <input class="form-control" type="text" placeholder="Landmark" value="{{ user.userProfile.address }}" readonly>
                                              </div>
                                           </div>
                                           <div class="clear"> </div>
                                        </div>
                                        <div class="controls">
                                           <label class="control-label">Town/City: </label>
-                                          <input class="form-control" type="text" placeholder="Town/City">
+                                          <input class="form-control" type="text" placeholder="Town/City" value="{{ user.userProfile.town }}" readonly>
                                        </div>
                                        <div class="controls">
-                                          <label class="control-label">Address type: </label>
-                                          <select class="form-control option-w3ls">
-                                             <option>Office</option>
-                                             <option>Home</option>
-                                             <option>Commercial</option>
+                                          <form action="orderstatus" method="post">
+                                          {% csrf_token %}
+                                          <label class="control-label">Order type: </label>
+                                          <select class="form-control option-w3ls" name="optradio">
+                                             <option value="Home Delivery">Home Delivery</option>
+                                             <option value="I will Pick">I will Pick</option>
                                           </select>
                                        </div>
                                     </div>
-                                    <button class="submit check_out">Delivery to this Address</button>
+                                    
                                  </div>
                               </section>
-                           </form>
+                           
                            <div class="checkout-right-basket">
-                              <a href="orderstatus">Confirm Order</a>
+
+                              <input type="submit" class="btn btn-primary" value="Confirm Order">
                            </div>
                         </div>
+                        </form>
                         <div class="clearfix"> </div>
                         <div class="clearfix"></div>
                      </div>

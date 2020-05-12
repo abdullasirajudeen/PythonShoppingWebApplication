@@ -170,7 +170,7 @@
             <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
                <div class="shop_inner_inf">
                   <div class="privacy about">
-                     <h3>Chec<span>kout</span></h3>
+                     <h3><span>Cart</span></h3>
                      <div class="checkout-right">
                         <h4>Your shopping cart contains: <span>{{  cartlist|length }}  Products</span></h4>
                         <table class="timetable_sub">
@@ -216,7 +216,9 @@
                   </div>
                </div>
                <div class="checkout-right-basket">
+                           {% if cartlist  %}
                               <a href="checkout">Confirm Order</a>
+                              {% endif %}
                            </div><br>
             </div>
             <div class="checkout-right-basket">
