@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
-
+from shop.models import products
 # Create your models here.
 
 class userProfile(models.Model):
@@ -22,3 +22,24 @@ class userProfile(models.Model):
 def create_profile(sender, **kwargs):
 	if kwargs['created']:
 		user_profile=userProfile.objects.create(user=kwargs['instance'])
+
+def check_product_stock(pid):
+	product=products.objects.get(id=pid)
+	if product.stock==0:
+		product.isactive=False
+		product.save()
+		print("marked inactive")
+		
+class orderDetails(models.Model):
+	userid = models.ForeignKey(User,default=None,on_delete=models.CASCADE)
+	productid = models.ForeignKey(products,default=None,on_delete=models.CASCADE)
+	quantity = models.IntegerField(default=1)
+	date = models.DateTimeField(auto_now_add=True)
+	address = models.TextField()
+	status = models.BooleanField(default=False)
+	paymode = models.CharField(max_length=20,default=None)
+	
+class cart(models.Model):
+	userid = models.ForeignKey(User,default=None,on_delete=models.CASCADE)
+	productid = models.ForeignKey(products,default=None,on_delete=models.CASCADE)
+	quantity = models.IntegerField(default=1)

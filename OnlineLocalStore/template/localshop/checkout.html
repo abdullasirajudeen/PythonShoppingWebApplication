@@ -43,7 +43,7 @@
    </head>
    <body>
       <!--headder-->
-       <div class="header-outs" id="home">
+        <div class="header-outs" id="home">
          
             <div class="container-fluid">
                <div class="hedder-up row">
@@ -66,15 +66,15 @@
                               <button type="button" data-toggle="modal" data-target="#exampleModal2"> <span class="far fa-user"></span></button>
                               {% endif %}
                            </li>
+                           {% if user.is_authenticated %}
                            <li class="toyscart toyscart2 cart cart box_1">
-                              <form action="#" method="post" class="last">
-                                 <input type="hidden" name="cmd" value="_cart">
-                                 <input type="hidden" name="display" value="1">
-                                 <button class="top_toys_cart" type="submit" name="submit" value="">
+                              <a href="viewcart">
+                             <button class="top_toys_cart" type="submit" name="submit" value="">
                                  <span class="fas fa-cart-arrow-down"></span>
                                  </button>
-                              </form>
+                              </a>
                            </li>
+                           {% endif %}
                         </ul>
                      </div>
                   </div>
@@ -188,18 +188,18 @@
                               {% for pro in product %}  
                               <tr class="rem{{pro.0.id}}">
                                  <td class="invert">{{  forloop.counter }}</td>
-                                 <td class="invert-image"><a href="single.html"><img height="92" width="91" src="{{ pro.0.img1.url}}" alt=" " class="img-responsive"></a></td>
+                                 <td class="invert-image"><a href="single.html"><img height="92" width="91" src="{{ pro.productid.img1.url}}" alt=" " class="img-responsive"></a></td>
                                  <td class="invert">
                                     <div class="quantity">
                                        <div class="quantity-select">
                                           
-                                          <div class="entry value"><span>{{ pro.1 }}</span></div>
+                                          <div class="entry value"><span>{{ pro.quantity }}</span></div>
                                           
                                        </div>
                                     </div>
                                  </td>
-                                 <td class="invert">{{ pro.0.pname }}</td>
-                                 <td class="invert">${{ pro.2 }}</td>
+                                 <td class="invert">{{ pro.productid.pname}}</td>
+                                 <td class="invert">${% if pro.productid.offer %}{{ pro.productid.offerprice }}{% else %}{{ pro.productid.price }}{% endif %}</td>
                                  
                               </tr>
                                {% endfor %}
@@ -212,10 +212,14 @@
                            <h4>Continue to basket</h4>
                            <ul>
                               {% for pro in product %}  
-                              <li>{{ pro.0.pname }} <i>-</i> <span>${{ pro.2 }} </span></li>
+                              {% for subt in subtotal %}
+                        {% if forloop.counter == forloop.parentloop.counter %}
+                              <li>{{ pro.productid.pname }} <i>-</i> <span>${{ subt }} </span></li>
+                              {% endif %}
+                        {% endfor %} 
                                {% endfor %}
                               
-                              <li>Total <i>-</i> <span>${{total}}</span></li>
+                             <b> <li>Total <i>-</i> <span>${{total}}</span></li></b>
                            </ul>
                         </div>
                         <div class="col-md-8 address_form">
@@ -261,7 +265,7 @@
                               </section>
                            </form>
                            <div class="checkout-right-basket">
-                              <a href="payment.html">Make a Payment </a>
+                              <a href="orderstatus">Confirm Order</a>
                            </div>
                         </div>
                         <div class="clearfix"> </div>

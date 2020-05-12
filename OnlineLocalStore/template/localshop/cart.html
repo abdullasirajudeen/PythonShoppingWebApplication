@@ -1,4 +1,9 @@
-{% load static %}
+<!--A Design by W3layouts
+   Author: W3layout
+   Author URL: http://w3layouts.com
+   License: Creative Commons Attribution 3.0 Unported
+   License URL: http://creativecommons.org/licenses/by/3.0/
+   -->{% load static %}
 <!DOCTYPE html>
 <html lang="zxx">
    <head>
@@ -24,13 +29,12 @@
       <!-- font-awesome icons -->
       <link href="{% static 'localshop/css/fontawesome-all.min.css' %}" rel="stylesheet" type="text/css" media="all">
       <!-- //font-awesome icons -->
-      <!-- For Clients slider -->
-      <link rel="stylesheet" href="{% static 'localshop/css/flexslider.css' %}" type="text/css" media="all" />
-      <!--flexs slider-->
-      <link href="{% static 'localshop/css/JiSlider.css' %}" rel="stylesheet">
       <!--Shoping cart-->
       <link rel="stylesheet" href="{% static 'localshop/css/shop.css' %}" type="text/css" />
       <!--//Shoping cart-->
+      <!--checkout-->
+      <link rel="stylesheet" type="text/css" href="{% static 'localshop/css/checkout.css' %}">
+      <!--//checkout-->
       <!--stylesheets-->
       <link href="{% static 'localshop/css/style.css' %}" rel='stylesheet' type='text/css' media="all">
       <!--//stylesheets-->
@@ -38,7 +42,8 @@
       <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
    </head>
    <body>
-      <div class="header-outs" id="home">
+      <!--headder-->
+        <div class="header-outs" id="home">
          
             <div class="container-fluid">
                <div class="hedder-up row">
@@ -141,13 +146,87 @@
                </div>
             </nav>
          </div>
+         <!--//headder-->
+         <!-- banner -->
+         <div class="inner_page-banner one-img">
+         </div>
+         <!-- short -->
+         <div class="using-border py-3">
+            <div class="inner_breadcrumb  ml-4">
+               <ul class="short_ls">
+                  <li>
+                     <a href="/">Home</a>
+                     <span>/ /</span>
+                  </li>
+                  <li>Cart</li>
+               </ul>
+            </div>
+         </div>
+         <!-- //short-->
+         <!--Checkout-->  
+         <!-- //banner -->
+         <!-- top Products -->
+         <section class="checkout py-lg-4 py-md-3 py-sm-3 py-3">
+            <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
+               <div class="shop_inner_inf">
+                  <div class="privacy about">
+                     <h3>Chec<span>kout</span></h3>
+                     <div class="checkout-right">
+                        <h4>Your shopping cart contains: <span>{{  cartlist|length }}  Products</span></h4>
+                        <table class="timetable_sub">
+                           <thead>
+                              <tr>
+                                 <th>SL No.</th>
+                                 <th>Product</th>
+                                 <th>Quality</th>
+                                 <th>Product Name</th>
+                                 <th>Price</th>
+                                 <th>Delete</th>
+                              </tr>
+                           </thead>
+                          <tbody>
+                              {% for pro in cartlist %}  
+                              {% for subt in subtotal %}
+                        {% if forloop.counter == forloop.parentloop.counter %}
+                              <tr class="">
+                                 <td class="invert">{{  forloop.parentloop.counter }}</td>
+                                 <td class="invert-image"><a href="single.html"><img height="92" width="91" src="{{ pro.productid.img1.url}}" alt=" " class="img-responsive"></a></td>
+                                 <td class="invert">
+                                    <div class="quantity">
+                                       <div class="quantity-select">
+                                          
+                                          <div class="entry value"><span>{{ pro.quantity }}</span></div>
+                                          
+                                       </div>
+                                    </div>
+                                 </td>
+                                 <td class="invert">{{ pro.productid.pname }}</td>
+                                 <td class="invert">${{ subt }}</td>
+                                 <td class="invert"><img src="{% static 'localshop/images/close_1.jpg' %}" href="#" id="removecart" data-id="{{pro.productid.id}}" class="remove-from-cart rem"><span ></span></a></td>
+                              </tr>
+                               {% endif %}
+                        {% endfor %} 
+                               {% endfor %}
+                               
+                           </tbody>
+                        </table>
 
-
- {% block content %}
-     
-    {% endblock %}
-
-
+                     </div>
+                  
+                  </div>
+               </div>
+               <div class="checkout-right-basket">
+                              <a href="checkout">Confirm Order</a>
+                           </div><br>
+            </div>
+            <div class="checkout-right-basket">
+                              
+                           </div>
+      </section>
+      <!--subscribe-address-->
+      
+      <!--//subscribe-address-->
+      
          <!-- footer -->
       <footer class="py-lg-4 py-md-3 py-sm-3 py-3 text-center">
          <div class="copy-agile-right">
@@ -223,10 +302,11 @@
          </div>
       </div>
       <!-- //Modal 1-->
+      <!-- //Modal 1-->
       <!--js working-->
       <script src="{% static 'localshop/js/jquery-2.2.3.min.js' %}"></script>
       <!--//js working-->
-      <!-- cart-js -->
+      <!-- cart-js -->  
       <script src="{% static 'localshop/js/minicart.js' %}"></script>
       <script>
          toys.render();
@@ -241,60 +321,51 @@
             }
          });
       </script>
-      <!-- //cart-js -->
-      <!--responsiveslides banner-->
-      <script src="{% static 'localshop/js/responsiveslides.min.js' %}"></script>
+      <!--// cart-js -->
+      <!--quantity-->
       <script>
-         // You can also use "$(window).load(function() {"
-         $(function () {
-            // Slideshow 4
-            $("#slider4").responsiveSlides({
-               auto: true,
-               pager:false,
-               nav:true ,
-               speed: 900,
-               namespace: "callbacks",
-               before: function () {
-                  $('.events').append("<li>before event fired.</li>");
-               },
-               after: function () {
-                  $('.events').append("<li>after event fired.</li>");
-               }
-            });
+         $('.value-plus').on('click', function () {
+            var divUpd = $(this).parent().find('.value'),
+               newVal = parseInt(divUpd.text(), 10) + 1;
+            divUpd.text(newVal);
+         });
          
+         $('.value-minus').on('click', function () {
+            var divUpd = $(this).parent().find('.value'),
+               newVal = parseInt(divUpd.text(), 10) - 1;
+            if (newVal >= 1) divUpd.text(newVal);
          });
       </script>
-      <!--// responsiveslides banner-->    
-      <!--slider flexisel -->
-      <script src="{% static 'localshop/js/jquery.flexisel.js' %}"></script>
+      <!--quantity-->
+      <!--closed-->
       <script>
-         $(window).load(function() {
-            $("#flexiselDemo1").flexisel({
-               visibleItems: 3,
-               animationSpeed: 3000,
-               autoPlay:true,
-               autoPlaySpeed: 2000,          
-               pauseOnHover: true,
-               enableResponsiveBreakpoints: true,
-               responsiveBreakpoints: { 
-                  portrait: { 
-                     changePoint:480,
-                     visibleItems: 1
-                  }, 
-                  landscape: { 
-                     changePoint:640,
-                     visibleItems:2
-                  },
-                  tablet: { 
-                     changePoint:768,
-                     visibleItems: 2
-                  }
-               }
+         $(document).ready(function (c) {
+            $('.close1').on('click', function (c) {
+               $('.rem1').fadeOut('slow', function (c) {
+                  $('.rem1').remove();
+               });
             });
-            
          });
       </script>
-      <!-- //slider flexisel -->
+      <script>
+         $(document).ready(function (c) {
+            $('.close2').on('click', function (c) {
+               $('.rem2').fadeOut('slow', function (c) {
+                  $('.rem2').remove();
+               });
+            });
+         });
+      </script>
+      <script>
+         $(document).ready(function (c) {
+            $('.close3').on('click', function (c) {
+               $('.rem3').fadeOut('slow', function (c) {
+                  $('.rem3').remove();
+               });
+            });
+         });
+      </script>
+      <!--//closed-->
       <!-- start-smoth-scrolling -->
       <script src="{% static 'localshop/js/move-top.js' %}"></script>
       <script src="{% static 'localshop/js/easing.js' %}"></script>
