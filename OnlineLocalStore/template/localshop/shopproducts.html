@@ -11,7 +11,7 @@
          <div class="inner_breadcrumb  ml-4">
             <ul class="short_ls">
                <li>
-                  <a href="index.html">Home</a>
+                  <a href="/">Home</a>
                   <span>/ /</span>
                </li>
                <li>Shop Products</li>
@@ -35,7 +35,7 @@
                                  <img src="{{ pro.img1.url}}" class="img-thumbnail img-fluid" alt="">
                                  <div class="men-cart-pro">
                                     <div class="inner-men-cart-pro">
-                                       <a href="/localshop/single?id={{ pro.id }}" class="link-product-add-cart">Quick View</a>
+                                       <a href="single?id={{ pro.id }}" class="link-product-add-cart">Quick View</a>
                                     </div>
                                  </div>
                                  <span class="product-new-top">New</span>
@@ -51,43 +51,21 @@
                                              <span class="money ">${% if pro.offer %}{{ pro.offerprice }}{% else %}{{ pro.price }}{% endif %}</span>
                                           </div>
                                        </div>
-                                       <ul class="stars">
-                                          <li>
-                                             <a href="#">
-                                             <i class="fas fa-star"></i>
-                                             </a>
-                                          </li>
-                                          <li>
-                                             <a href="#">
-                                             <i class="fas fa-star"></i>
-                                             </a>
-                                          </li>
-                                          <li>
-                                             <a href="#">
-                                             <i class="fas fa-star"></i>
-                                             </a>
-                                          </li>
-                                          <li>
-                                             <a href="#">
-                                             <i class="fas fa-star" ></i>
-                                             </a>
-                                          </li>
-                                          <li>
-                                             <a href="#">
-                                             <i class="far fa-star-half-o"></i>
-                                             </a>
-                                          </li>
-                                       </ul>
+                                       
                                     </div>
                                     <div class="toys single-item hvr-outline-out">
                                     
-                                          
+                                          {% if user.is_authenticated%}
                                       <button href="#" id="addcart" data-id="{{ pro.id }}" class="toys-cart ptoys-cart">
                                         <span id="addcart"><i id="addcart{{ pro.id }}"class="fas fa-cart-plus"></i></span>
                                     </button>
-
-
+                                     {% else %}
+                                       <button href="#" id="addcart" data-id="{{ pro.id }}" class="toys-cart ptoys-cart">
+                                        <span id="addcart"><i data-toggle="modal" data-target="#exampleModal"class="fas fa-cart-plus"></i></span>
+                                    </button>
+                                    {% endif %}
                                     </div>
+
                                  </div>
                                  <div class="clearfix"></div>
                               </div>

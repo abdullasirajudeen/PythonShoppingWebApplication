@@ -220,3 +220,10 @@ def orderhistory(request):
 	except orderlist.DoesNotExist:
 		orderlist = None
 	return render(request,"localshop/orderhistory.html",{'orderlist':orderlist})
+
+def single(request):
+	pid = request.GET['id']
+	product=products.objects.filter(id=pid)
+	tstar=0
+	soldcount=0
+	return render(request,"localshop/single.html",{'product':product})
