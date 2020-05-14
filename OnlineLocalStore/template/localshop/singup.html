@@ -1,0 +1,84 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="inner_page-banner one-img">
+      </div>
+      <!--//banner -->
+      <!-- short -->
+      <div class="using-border py-3">
+         <div class="inner_breadcrumb  ml-4">
+            <ul class="short_ls">
+               <li>
+                  <a href="index.html">Home</a>
+                  <span>/ /</span>
+               </li>
+               <li>user_signup</li>
+            </ul>
+         </div>
+      </div>
+      <!-- //short-->
+      <!--//banner -->
+      <!--Typography-->
+      <section class="inner-pages py-5">
+         <div class="container py-xl-5 py-sm-3">
+               <h3 class="typo-main-heading mb-lg-4 mb-3 pr-3 pb-1">SignUp Form</h3>
+               <form action="signup" method="post" enctype="multipart/form-data">
+                                     {% csrf_token %}
+                  <div class="form-row">
+                     <div class="form-group col-md-6">
+                        <label for="inputEmail4">First Name</label>
+                        <input type="text" class="form-control" name="firstname" placeholder="first name" required>
+                     </div>
+                     <div class="form-group col-md-6">
+                        <label for="inputPassword4">Last Name</label>
+                        <input type="text" class="form-control" name="lastname" placeholder="last name">
+                     </div>
+                  </div>
+                  <div class="form-row">
+                     <div class="form-group col-md-6">
+                        <label for="inputEmail4">Email</label>
+                        <input type="email" class="form-control" name="email" placeholder="Email" required>
+                     </div>
+                     <div class="form-group col-md-6">
+                        <label for="inputPassword4">Password</label>
+                        <input type="password" class="form-control" name="password" placeholder="Password" required>
+                     </div>
+                  </div>
+                  <div class="form-row">
+                     
+                     <div class="form-group col-md-6">
+                        <label for="inputPassword4">Phone Number</label>
+                        <input type="Phone" class="form-control" name="phone" placeholder="Phone Number" required>
+                     </div>
+                  </div>
+                  
+                  <div class="form-group">
+                     <label for="inputAddress2">Address 2</label>
+                     <input type="text" class="form-control" name="address" placeholder="Apartment, studio, or floor" required>
+                  </div>
+                  <div class="form-row">
+                     <div class="form-group col-md-6">
+                        <label for="inputCity">Town</label>
+                        <input type="text" class="form-control" placeholder="Town or city" name="town" required>
+                     </div>
+                     <div class="form-group col-md-4">
+                        <label for="inputState">State</label>
+                        <select name="state" class="form-control">
+                           <option selected="">Choose...</option>
+                           <option value="kerala">kerala</option>
+                        </select>
+                     </div>
+                     <div class="form-group col-md-2">
+                        <label for="inputZip">Pin</label>
+                        <input type="text" class="form-control" placeholder="pincode" name="pincode" required>
+                     </div>
+                  </div>
+                  
+                  <button type="submit" class="btn btn-primary">SignUp</button>
+               </form> 
+           
+              </div>
+            </section>
+
+       {% endblock %}

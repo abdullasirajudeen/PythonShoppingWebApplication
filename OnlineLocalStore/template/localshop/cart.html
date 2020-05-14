@@ -107,17 +107,7 @@
                            <a class="nav-link " href="typography.html">Typography</a>
                         </div>
                      </li>
-                     {% if not user.is_authenticated and user.userProfile.is_store %}
-                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Store Keeper
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                           <a class="nav-link" href="/shop/login">Log In</a>
-                           <a class="nav-link " href="/shop/signup">Sign Up</a>
-                        </div>
-                     </li>
-                     {% else %}
+                     {% if user.is_authenticated and user.userProfile.is_store %}
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Store Keeper
@@ -125,6 +115,17 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                            <a class="nav-link" href="/shop/index">Home</a>
                            <a class="nav-link " href="/shop/logout">Logout out</a>
+                        </div>
+                     </li>
+                     
+                     {% else %}
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Store Keeper
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                           <a class="nav-link" href="/shop/login">Log In</a>
+                           <a class="nav-link " href="/shop/signup">Sign Up</a>
                         </div>
                      </li>
                      {% endif %}

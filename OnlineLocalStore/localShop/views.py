@@ -187,3 +187,36 @@ def shopproducts(request):
 	shop=User.objects.get(id=sid)
 	product=products.objects.filter(isactive=True,owner=shop)
 	return render(request,"localshop/shopproducts.html",{'product':product})
+
+def signup(request):
+	if request.method == 'POST':
+		first_name=request.POST['firstname']
+		last_name=request.POST['lastname']
+		email=request.POST['email']
+		password=request.POST['password']
+		username=request.POST['email']
+		phone=request.POST['phone']
+		address=request.POST['address']
+		town=request.POST['town']
+		state=request.POST['state']
+		pincode=request.POST['pincode']
+		try:
+			user =User.objects.create_user(username=username,first_name=first_name,last_name=last_name,email=email,password=password)
+			profile=userProfile(user=user,state=state,town=town,address=address,pincode=pincode,phone=phone)
+			user.save();
+			profile.save();
+			print('created')
+			return redirect('/')
+		except Exception as e:
+			print(e)
+			print('something wrong')
+			return render(request,"localshop/singup.html")
+	else:
+		return render(request,"localshop/singup.html")
+
+def orderhistory(request):
+	try:
+		orderlist=orderDetails.objects.filter(userid_id=request.user,status=True)
+	except orderlist.DoesNotExist:
+		orderlist = None
+	return render(request,"localshop/orderhistory.html",{'orderlist':orderlist})

@@ -236,20 +236,28 @@
                                           <div class="card_number_grid_left">
                                              <div class="controls">
                                                 <label class="control-label">Mobile number:</label>
-                                                <input class="form-control" type="text" placeholder="Mobile number"  value="{{ user.userProfile.phone }}" readonly>
+                                                <input class="form-control" type="text" placeholder="Mobile number"  value="{{ user.userprofile.phone }}" readonly>
                                              </div>
                                           </div>
                                           <div class="card_number_grid_right">
                                              <div class="controls">
                                                 <label class="control-label">Landmark: </label>
-                                                <input class="form-control" type="text" placeholder="Landmark" value="{{ user.userProfile.address }}" readonly>
+                                                <input class="form-control" type="text" placeholder="Landmark" value="{{ user.userprofile.address }}" readonly>
                                              </div>
                                           </div>
                                           <div class="clear"> </div>
                                        </div>
                                        <div class="controls">
                                           <label class="control-label">Town/City: </label>
-                                          <input class="form-control" type="text" placeholder="Town/City" value="{{ user.userProfile.town }}" readonly>
+                                          <input class="form-control" type="text" placeholder="Town/City" value="{{ user.userprofile.town }}" readonly>
+                                       </div>
+                                        <div class="card_number_grid_right">
+                                             <div class="controls">
+                                                <label class="control-label">Pincode: </label>
+                                                <input class="form-control" type="text" placeholder="pincode" value="{{ user.userprofile.pincode }}" readonly>
+                                             </div>
+                                          </div>
+                                          <div class="clear"> </div>
                                        </div>
                                        <div class="controls">
                                           <form action="orderstatus" method="post">
@@ -259,6 +267,7 @@
                                              <option value="Home Delivery">Home Delivery</option>
                                              <option value="I will Pick">I will Pick</option>
                                           </select>
+                                          <div class="clear"> </div>
                                        </div>
                                     </div>
                                     
