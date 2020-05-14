@@ -8,25 +8,17 @@
    License URL: http://creativecommons.org/licenses/by/3.0/
    -->
 
-         <!-- Slideshow 4 -->
+<!-- Slideshow 4 -->
          <div class="slider text-center">
+
             <div class="callbacks_container">
+
                <ul class="rslides" id="slider4">
                   <li>
                      <div class="slider-img one-img">
                         <div class="container">
                            <div class="slider-info ">
                               <h5>Search The Best Product <br>Near You</h5>
-                              <div class="bottom-info">
-
-                              <form action="search" method="post">
-                                 {% csrf_token %} 
-                                    <input class="form-control mr-sm-2" type="search" placeholder="Type Product Name">                
-                              </div>
-                             
-                              </br>
-                                  <button class="btn btn-primary" type="submit">Search</button>
-                                 </form>
                               
                            </div>
                         </div>
@@ -37,16 +29,6 @@
                         <div class="container">
                            <div class="slider-info ">
                               <h5>Your Complete Local Store<br>Search</h5>
-                              <div class="bottom-info">
-
-                             <form action="search" method="post">
-                                 {% csrf_token %} 
-                                    <input class="form-control mr-sm-2" type="search" placeholder="Type Product Name">                
-                              </div>
-                             
-                              </br>
-                                  <button class="btn btn-primary" type="submit">Search</button>
-                                 </form>
                               
                            </div>
                            </div>
@@ -54,6 +36,15 @@
                      </div>
                   </li>
                </ul>
+              <center><div class="bottom-info">
+
+   <form action="search" method="get">
+
+      <input class="form-control mr-sm-2 id_input" id="id_input" type="search" name="pname" placeholder="Type Product Name">                
+
+    <button class="btn btn-primary" type="submit">Search</button>
+   </form>
+</div></center> 
             </div>
             <!-- This is here just to demonstrate the callbacks -->
             <!-- <ul class="events">

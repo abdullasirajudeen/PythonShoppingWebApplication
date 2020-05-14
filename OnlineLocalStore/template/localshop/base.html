@@ -36,6 +36,11 @@
       <!--//stylesheets-->
       <link href="//fonts.googleapis.com/css?family=Sunflower:500,700" rel="stylesheet">
       <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
    </head>
    <body>
       <div class="header-outs" id="home">
@@ -224,7 +229,7 @@
       </div>
       <!-- //Modal 1-->
       <!--js working-->
-      <script src="{% static 'localshop/js/jquery-2.2.3.min.js' %}"></script>
+     
       <!--//js working-->
       <!-- cart-js -->
       <script src="{% static 'localshop/js/minicart.js' %}"></script>
@@ -330,5 +335,28 @@
       <!--bootstrap working-->
       <script src="{% static 'localshop/js/bootstrap.min.js' %}"></script>
       <!-- //bootstrap working-->
+
+
+<script>
+jQuery(function() {
+    $("#id_input").on('keyup', function(){
+        var value = $(this).val();
+        $.ajax({
+            url: "{% url 'ajax_autocomplete' %}",
+            data: {
+              'search': value 
+            },
+            dataType: 'json',
+            success: function (data) {
+                list = data.list;    
+                $( "#id_input" ).autocomplete({
+      source: list
+    }); 
+            }
+        });        
+    });
+  });
+</script>
+
    </body>
 </html>

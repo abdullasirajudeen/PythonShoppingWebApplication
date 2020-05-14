@@ -345,6 +345,18 @@ padding: 10px 20px;
 margin: 0;
 max-width: none;
 }
+
+.bottom-info {
+z-index: 1000;
+padding: 30em 0 0;
+position: absolute;
+width: 70%;
+left: 50%;
+-ms-transform: translateX(-50%) translateY(0%);
+-webkit-transform: translate(-50%,0%);
+transform: translate(-50%,0%);
+}
+
 .slider-info {
 padding: 23em 0 0;
 }

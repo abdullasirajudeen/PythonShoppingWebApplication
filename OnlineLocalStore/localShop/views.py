@@ -8,6 +8,18 @@ import urllib
 from django.http import HttpResponse
 
 # Create your views here.
+from django.http import JsonResponse
+
+def autocomplete(request):
+    if request.is_ajax():
+        queryset = products.objects.filter(pname__startswith=request.GET.get('search', None))
+        list = []        
+        for i in queryset:
+            list.append(i.pname)
+        data = {
+            'list': list,
+        }
+        return JsonResponse(data)
 
 def index(request):
 	return render(request,"localshop/index.html")
@@ -31,11 +43,11 @@ def logout(request):
 
 def search(request):
 	try:
-		cat = request.GET['cat']
+		name=request.GET['pname']
 	except:
-		cat = 'All'	
+		name = ""	
 	trate=3
-	product=products.objects.filter(isactive=True)
+	product=products.objects.filter(isactive=True,pname__startswith=name)
 	return render(request,"localshop/search.html",{'product':product})
 
 def checkout(request):
