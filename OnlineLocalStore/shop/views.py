@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
-from localShop.models import userProfile
+from localShop.models import userProfile,orderDetails
 from .models import products
 from django.forms import ModelForm
 # Create your views here.
@@ -96,3 +96,10 @@ def index(request):
 	current_user = request.user
 	product=products.objects.filter(owner=request.user)
 	return render(request,"shop/index.html",{'product':product})#temporary
+
+def neworders(request):
+	try:
+		orderlist=orderDetails.objects.filter(productid__owner=request.user.id,status=False)
+	except orderDetails.DoesNotExist:
+		orderlist = None
+	return render(request,"shop/orders.html",{'orderlist':orderlist})
