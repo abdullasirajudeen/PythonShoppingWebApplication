@@ -12,5 +12,5 @@ urlpatterns = [
     path('neworders', views.neworders,name='new_orders'),
     path('viewproducts', views.viewproducts,name='view_products'),
     path('ordercompleted', views.ordercompleted,name='order_completed'),
-
+	path('editproduct', views.editproduct,name='edit_product'),
 ]

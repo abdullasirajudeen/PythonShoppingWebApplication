@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="zxx">
    <head>
-      <title>Toys Shop an Ecommerce Category Bootstrap Responsive Web Template | Home :: w3layouts</title>
+      <title>Online Local Store</title>
       <!--meta tags -->
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -118,7 +118,7 @@
                   <a href="/">Home</a>
                   <span>/ /</span>
                </li>
-               <li>Single Page</li>
+               <li>Single Product</li>
             </ul>
          </div>
       </div>
@@ -171,15 +171,15 @@
                         <div class="toys single-item singlepage">
                             <div class="toys single-item singlepage">
                            
-                              <button type="submit" class="toys-cart ptoys-cart add">
+                              <a type="submit" href="/shop/editproduct?id={{ pro.id }}" class="btn btn-primary">
                               Edit
-                              </button>
-                              <button type="submit" class="toys-cart ptoys-cart add">
+                              </a>
+                              <a type="submit" href="/shop/marksold?id={{ pro.id }}" class="btn btn-primary">
                               Mark as SOLD
-                              </button>
-                              <button type="submit" class="toys-cart ptoys-cart add">
+                              </a>
+                              <a type="submit" href="/shop/deleteproduct?id={{ pro.id }}" class="btn btn-secondary">
                               Delete
-                              </button>
+                              </a>
                          
                         </div>
                          
