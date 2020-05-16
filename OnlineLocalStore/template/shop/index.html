@@ -73,32 +73,38 @@
             <div class="row">
                  {% for pro in product %} 
                  {% if pro.isactive == False %}
-                <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="#" class="img-prod"><img class="img-fluid" src="{{ pro.img.url}}" alt="Colorlib Template">
-                            {% if pro.offer %}
-                            <span class="status">{{ pro.offerprice }}on offer</span>
-                            {% endif %}
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="#">{{ pro.pname }}</a></h3>
-                            <div class="d-flex">
-                                <div class="pricing">
-                                    {% if pro.offer %}<p class="price"><span class="mr-2 price-dc">${{ pro.price }}</span><span class="price-sale">${{ pro.offerprice }}</span> </p>{% else %}<p class="price"><span class="price-sale">${{ pro.price }}</span> </p>{% endif %}
-                                </div>
-                            </div>
-                            <div class="bottom-area d-flex px-3">
-                                <div class="m-auto d-flex">
-                                    <a href="/farmers/productdetails?id={{ pro.id }}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                        <span><i class="ion-ios-menu"></i></span>
-                                    </a>
-                                    
-                                </div>
-                            </div>
+                <div class="col-lg-3 col-md-6  product-men women_two">
+                        <div class="product-toys-info">
+                           <div class="men-pro-item">
+                              <div class="men-thumb-item">
+                                 <img src="{{ pro.img1.url}}" class="img-thumbnail img-fluid" alt="">
+                                 <div class="men-cart-pro">
+                                    <div class="inner-men-cart-pro">
+                                       <a href="/shop/single?id={{ pro.id }}" class="link-product-add-cart">Quick View</a>
+                                    </div>
+                                 </div>
+                                 <span class="product-new-top">New</span>
+                              </div>
+                              <div class="item-info-product">
+                                 <div class="info-product-price">
+                                    <div class="grid_meta">
+                                       <div class="product_price">
+                                          <h4>
+                                             <a href="single?id={{ pro.id }}">{{ pro.pname }}</a>
+                                          </h4>
+                                          
+                                       </div>
+                                    </div>
+                                    <div class="grid-price mt-2">
+                                        <span class="money ">${% if pro.offer %}{{ pro.offerprice }}{% else %}{{ pro.price }}{% endif %}</span>
+                                    </div>
+                                 </div>
+                                
+                              </div>
+                           </div>
                         </div>
-                    </div>
-                </div>
+                     </div>
+                     
                    {% endif %}
                 {% endfor %}   
             </div>

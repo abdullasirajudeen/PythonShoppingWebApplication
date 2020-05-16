@@ -9,6 +9,11 @@ class AddProductForm(ModelForm):
         model = products
         fields = ['pname','ptype','description', 'stock', 'price', 'img1', 'img2', 'img3', 'offer','offerprice']
 
+class EditProductForm(ModelForm):
+    class Meta:
+        model = products
+        fields = ['pname','ptype','description', 'stock', 'price', 'img1', 'img2', 'img3', 'offer','offerprice','isactive']
+
 def single(request):
 	current_user = request.user
 	pid = request.GET['id']
@@ -132,14 +137,14 @@ def editproduct(request):
 	pid = request.GET['id']
 	if request.method == 'POST':
 		current=products.objects.get(id=pid)
-		form = AddProductForm(request.POST,request.FILES or None,instance=current)
+		form = EditProductForm(request.POST,request.FILES or None,instance=current)
 		if form.is_valid():
 			instance = form.save(commit=False)
 			instance.owner = request.user
 			instance.save()
 			return redirect(r'/shop/single?id='+pid)
 		else:
-			form = AddProductForm(request.POST,request.FILES or None)
+			form = EditProductForm(request.POST,request.FILES or None)
 			context={
 			'form':form
 			}
@@ -148,9 +153,23 @@ def editproduct(request):
 		current_user = request.user
 		product=products.objects.filter(owner=request.user,id=pid)
 		for pro in product:
-			form = AddProductForm(initial={'pname': pro.pname,'ptype': pro.ptype,'description': pro.description,'stock': pro.stock,'isactive':pro.isactive,'price': pro.price,'img1': pro.img1,'img2': pro.img2,'img3': pro.img3,'offer': pro.offer,'offerprice': pro.offerprice})
+			form = EditProductForm(initial={'pname': pro.pname,'ptype': pro.ptype,'description': pro.description,'stock': pro.stock,'isactive':pro.isactive,'price': pro.price,'img1': pro.img1,'img2': pro.img2,'img3': pro.img3,'offer': pro.offer,'offerprice': pro.offerprice,'isactive':pro.isactive})
 			context={
 			'form':form
 			}
 		return render(request,"shop/addproduct.html",context)
 
+def marksold(request):
+	pid = request.GET['id']
+	try:
+		product=products.objects.get(owner=request.user,id=pid)
+	except products.DoesNotExist:
+		product = None
+	if product:
+		product.isactive = False
+		product.save()
+		return redirect('/shop/index')
+	else:
+		print('Something went wrong, TryAgain')
+		return redirect('/shop/index')
+		
