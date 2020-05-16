@@ -16,4 +16,10 @@ $ python manage.py runserver
 
 #copy http://192.168.1.101:80/ server ip and paste into browser
 
+
+#super user
+
+username: achu
+Password: admin
+
 Done...!
