@@ -172,4 +172,16 @@ def marksold(request):
 	else:
 		print('Something went wrong, TryAgain')
 		return redirect('/shop/index')
-		
+
+def deleteproduct(request):
+	pid = request.GET['id']
+	try:
+		product=products.objects.get(owner=request.user,id=pid)
+	except products.DoesNotExist:
+		product = None
+	if product:
+		product.delete()
+		return redirect('/shop/index')
+	else:
+		print('Something went wrong, TryAgain')
+		return redirect('/shop/index')
