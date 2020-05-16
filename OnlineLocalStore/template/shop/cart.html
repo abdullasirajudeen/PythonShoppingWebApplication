@@ -151,9 +151,9 @@
             <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
                <div class="shop_inner_inf">
                   <div class="privacy about">
-                     <h3><span>{{  orderlist.0.userid.first_name }}'s Cart</span></h3>
+                     <h3><span>Cart</span></h3>
                      <div class="checkout-right">
-                        <h4>cart contains: <span>{{  orderlist|length }}  Products</span></h4>
+                        <h4>Your shopping cart contains: <span>{{  cartlist|length }}  Products</span></h4>
                         <table class="timetable_sub">
                            <thead>
                               <tr>
@@ -161,15 +161,17 @@
                                  <th>Product</th>
                                  <th>Quality</th>
                                  <th>Product Name</th>
-                                 <th>Date</th>
+                                 <th>Price</th>
+                                 <th>Delete</th>
                               </tr>
                            </thead>
                           <tbody>
-                              {% for pro in orderlist %}  
-             
+                              {% for pro in cartlist %}  
+                              {% for subt in subtotal %}
+                        {% if forloop.counter == forloop.parentloop.counter %}
                               <tr class="">
-                                 <td class="invert">{{  forloop.counter }}</td>
-                                 <td class="invert-image"><a href="single?id={{ pro.id }}"><img height="92" width="91" src="{{ pro.productid.img1.url}}" alt=" " class="img-responsive"></a></td>
+                                 <td class="invert">{{  forloop.parentloop.counter }}</td>
+                                 <td class="invert-image"><a href="single?id={{ pro.productid.id }}"><img height="92" width="91" src="{{ pro.productid.img1.url}}" alt=" " class="img-responsive"></a></td>
                                  <td class="invert">
                                     <div class="quantity">
                                        <div class="quantity-select">
@@ -180,10 +182,11 @@
                                     </div>
                                  </td>
                                  <td class="invert">{{ pro.productid.pname }}</td>
-                                 <td class="invert">{{ pro.date }}</td>
-                                 
+                                 <td class="invert">${{ subt }}</td>
+                                 <td class="invert"><img src="{% static 'localshop/images/close_1.jpg' %}" href="#" id="removecart" data-id="{{pro.productid.id}}" class="remove-from-cart rem"><span ></span></a></td>
                               </tr>
-                               
+                               {% endif %}
+                        {% endfor %} 
                                {% endfor %}
                                
                            </tbody>
@@ -194,8 +197,8 @@
                   </div>
                </div>
                <div class="checkout-right-basket">
-                           {% if orderlist  %}
-                              <a href="/shop/ordercompleted?id={{  orderlist.0.userid.id }}" class="btn btn-primary"data-id="{{ item.id }}">Order Completed</a>
+                           {% if cartlist  %}
+                              <a href="checkout">Confirm Order</a>
                               {% endif %}
                            </div><br>
             </div>

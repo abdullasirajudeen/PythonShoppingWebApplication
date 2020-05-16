@@ -173,12 +173,12 @@
                                  
                               <tr class="">
                                  <td class="invert">{{  forloop.counter }}</td>
-                                 <td class="invert">{{ pro.grouper  }}</td>
+                                 <td class="invert">{{ pro.list.0.userid.first_name  }}</td>
                                  <td class="invert">{{ pro.list.0.address|truncatechars:20  }}</td>
                                  
                                  <td class="invert">{{ pro.list|length}}</td>
                                  <td class="invert">{{ pro.list.0.paymode }}</td>
-                                 <td class="invert"> <a href="shop/viewproducts?id={{ pro.list.0.userid.id }}" class="btn btn-primary"data-id="{{ item.id }}">View Products</a>
+                                 <td class="invert"> <a href="/shop/viewproducts?id={{ pro.list.0.userid.id }}" class="btn btn-primary"data-id="{{ item.id }}">View Products</a>
                               
                               </button></td>
                               </tr>

@@ -103,3 +103,27 @@ def neworders(request):
 	except orderDetails.DoesNotExist:
 		orderlist = None
 	return render(request,"shop/orders.html",{'orderlist':orderlist})
+
+def viewproducts(request):
+	cid=request.GET['id']
+	cuser=User.objects.get(id=cid)
+	try:
+		orderlist=orderDetails.objects.filter(productid__owner=request.user.id,status=False,userid=cuser)
+	except orderDetails.DoesNotExist:
+		orderlist = None
+	return render(request,"shop/viewproducts.html",{'orderlist':orderlist})
+
+def ordercompleted(request):
+	uid = request.GET['id']
+	cuser=User.objects.get(id=uid)
+	try:
+		orderlist=orderDetails.objects.get(productid__owner=request.user.id,status=False,userid=cuser)
+	except orderlist.DoesNotExist:
+		orderlist = None
+	if orderlist:
+		orderlist.status = True
+		orderlist.save()
+		return redirect('/shop/neworders')
+	else:
+		print('Something went wrong, TryAgain')
+		return redirect('/shop/neworders')
