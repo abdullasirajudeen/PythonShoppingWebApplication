@@ -102,6 +102,13 @@ def index(request):
 	product=products.objects.filter(owner=request.user)
 	return render(request,"shop/index.html",{'product':product})#temporary
 
+def orderhistory(request):
+	try:
+		orderlist=orderDetails.objects.filter(productid__owner=request.user.id,status=True)
+	except orderDetails.DoesNotExist:
+		orderlist = None
+	return render(request,"shop/history.html",{'orderlist':orderlist})
+
 def neworders(request):
 	try:
 		orderlist=orderDetails.objects.filter(productid__owner=request.user.id,status=False)
