@@ -122,12 +122,13 @@ def ordercompleted(request):
 	uid = request.GET['id']
 	cuser=User.objects.get(id=uid)
 	try:
-		orderlist=orderDetails.objects.get(productid__owner=request.user.id,status=False,userid=cuser)
-	except orderlist.DoesNotExist:
+		orderlist=orderDetails.objects.filter(productid__owner=request.user.id,status=False,userid=cuser)
+	except orderDetails.DoesNotExist:
 		orderlist = None
 	if orderlist:
-		orderlist.status = True
-		orderlist.save()
+		for order in orderlist:
+			order.status = True
+			order.save()
 		return redirect('/shop/neworders')
 	else:
 		print('Something went wrong, TryAgain')
