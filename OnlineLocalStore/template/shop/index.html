@@ -29,6 +29,7 @@
                         </div>
                     </div>
                 </div>
+                {% if product %} 
                  {% for pro in product %} 
                     {% if pro.isactive == True %}
 
@@ -67,12 +68,19 @@
                      
                 {% endif %}
                 {% endfor %}   
+                {% else %}
+                   <div class="col-md-12 heading-section text-center ftco-animate">
+                    <h4>You haven't Added Products Yet..!</h4>
+                  </div>
+                {% endif %}  
             </div>
         </div>
         <div class="tab-pane fade" id="Sold" role="tabpanel" aria-labelledby="Sold-tab">
-            <div class="row">
+            
+              {% if product %} 
                  {% for pro in product %} 
                  {% if pro.isactive == False %}
+                 <div class="row">
                 <div class="col-lg-3 col-md-6  product-men women_two">
                         <div class="product-toys-info">
                            <div class="men-pro-item">
@@ -106,8 +114,15 @@
                      </div>
                      
                    {% endif %}
-                {% endfor %}   
-            </div>
+
+                {% endfor %}  
+                   </div>
+                {% else %}
+                   <div class="col-md-12 heading-section text-center ftco-animate">
+                    <h4>You haven't Added Products Yet..!</h4>
+                  </div>
+                {% endif %}    
+           
         </div>
             </div>
 </div>

@@ -47,7 +47,10 @@ def search(request):
 	except:
 		name = ""	
 	trate=3
-	product=products.objects.filter(isactive=True,pname__startswith=name)
+	try:
+		product=products.objects.filter(isactive=True,pname__startswith=name)
+	except:
+		product=None
 	return render(request,"localshop/search.html",{'product':product})
 
 def checkout(request):
@@ -176,7 +179,10 @@ def shopsnearme(request):
 	except:
 		cat = 'All'	
 	trate=3
-	shops=User.objects.filter(userprofile__is_store=True)
+	try:
+		shops=User.objects.filter(userprofile__is_store=True)
+	except:
+		shops=None
 	return render(request,"localshop/shopsnearme.html",{'product':shops})
 
 def shopproducts(request):
@@ -184,8 +190,11 @@ def shopproducts(request):
 		sid = request.GET['id']
 	except:
 		print("no id got as parameter")
-	shop=User.objects.get(id=sid)
-	product=products.objects.filter(isactive=True,owner=shop)
+	try:
+		shop=User.objects.get(id=sid)
+		product=products.objects.filter(isactive=True,owner=shop)
+	except:
+		product=None
 	return render(request,"localshop/shopproducts.html",{'product':product})
 
 def signup(request):

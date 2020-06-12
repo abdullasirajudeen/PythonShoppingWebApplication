@@ -166,6 +166,7 @@
                               </tr>
                            </thead>
                           <tbody>
+                           {% if cartlist %}
                               {% for pro in cartlist %}  
                               {% for subt in subtotal %}
                         {% if forloop.counter == forloop.parentloop.counter %}
@@ -188,7 +189,20 @@
                                {% endif %}
                         {% endfor %} 
                                {% endfor %}
+                               </tbody>
+                        </table>
+                        {% else %}
+
+                          <tbody>
+                              <tr id="myElement" class="text-center">
+                          <td colspan="6">
+                           <h4>Your Cart is Empty..!</h4>
+                           <p class="lead">
+                                 <a class="btn btn-primary " href="/" role="button">Start Shopping</a></p>
+                          </td>
+                        </tr>
                                
+                        {% endif %}
                            </tbody>
                         </table>
 
