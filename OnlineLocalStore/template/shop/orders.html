@@ -147,6 +147,7 @@
                               </tr>
                            </thead>
                           <tbody>
+                           {% if orderlist %}  
                            {% regroup orderlist by userid as order_list %}
                               {% for pro in order_list %}  
                                  
@@ -163,7 +164,17 @@
                               </tr>
                               
                                {% endfor %}
+                                 
+                        {% else %}
+
+                              <tr id="myElement" class="text-center">
+                          <td colspan="6">
+                           <h4>No New Orders..!</h4>
+                          
+                          </td>
+                        </tr>
                                
+                        {% endif %}
                            </tbody>
                         </table>
 
