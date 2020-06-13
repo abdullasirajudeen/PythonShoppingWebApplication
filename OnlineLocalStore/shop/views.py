@@ -57,9 +57,9 @@ def login(request):
 				auth.login(request,user)
 				return redirect('/shop/index')
 			else :
-				return redirect('/shop/login')
+				return render(request,"localshop/index.html",{"logmsg":"You are not a Store Keeper..Redirecting You to User Login..!"})
 		else :
-			return redirect('/shop/login')
+			return render(request,"shop/login.html",{"logmsg":"Incorrect username or Password..Try Again..!"})
 	else:
 		return render(request,"shop/login.html")
 

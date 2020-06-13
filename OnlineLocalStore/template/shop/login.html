@@ -37,8 +37,12 @@
                         <input type="password" class="form-control" name="password" placeholder="Password">
                      </div>
                   </div>
+                  {% if logmsg %}
+                     <P style="color:red;text-align:center;"> {{ logmsg }}</P>
+                  {% endif %}
                   <div class="form-group row">
                      <div class="col-sm-10">
+                        <p></p>
                         <button type="submit" class="btn btn-primary">Log in</button>
                      </div>
                   </div>

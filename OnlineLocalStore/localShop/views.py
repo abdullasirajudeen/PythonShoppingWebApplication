@@ -33,7 +33,7 @@ def login(request):
 			auth.login(request,user)
 			return redirect('/')
 		else :
-			return redirect('/login')
+			return render(request,"localshop/index.html",{"logmsg":"Incorrect username or Password..Try Again..!"})
 	else:
 		return render(request,"localshop/index.html")
 
