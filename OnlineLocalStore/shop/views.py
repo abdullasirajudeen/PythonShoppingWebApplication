@@ -123,7 +123,14 @@ def viewproducts(request):
 		orderlist=orderDetails.objects.filter(productid__owner=request.user.id,status=False,userid=cuser)
 	except orderDetails.DoesNotExist:
 		orderlist = None
-	return render(request,"shop/viewproducts.html",{'orderlist':orderlist})
+	total=0
+	if orderlist:
+		for item in orderlist:
+			if item.productid.offer:
+				total=total+item.productid.offerprice*item.quantity
+			else:
+				total=total+item.productid.price*item.quantity
+	return render(request,"shop/viewproducts.html",{'orderlist':orderlist,'total':total})
 
 def ordercompleted(request):
 	uid = request.GET['id']
