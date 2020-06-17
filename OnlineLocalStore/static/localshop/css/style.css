@@ -24,7 +24,22 @@ body a {
     -ms-transition: 0.5s all;
     text-decoration: none;
 }
-
+    .quantity-left-minus{
+        background: transparent;
+        padding: 0 15px;
+    }
+    .quantity-right-plus{
+        background: transparent;
+        padding: 0 15px;
+    }
+        .quantity-left-minus{
+        background: transparent;
+        padding: 16px 20px;
+    }
+    .quantity-right-plus{
+        background: transparent;
+        padding: 16px 20px;
+    }
 body a:hover {
     text-decoration: none;
 }
