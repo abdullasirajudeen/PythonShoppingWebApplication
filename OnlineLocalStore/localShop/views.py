@@ -239,8 +239,11 @@ def signup(request):
 			return redirect('/')
 		except Exception as e:
 			print(e)
-			print('something wrong')
-			return render(request,"localshop/singup.html")
+			if str(e)[0:44]=="UNIQUE constraint failed: auth_user.username":
+				msg="Email Already Taken.Try Different One..!"
+			else:
+				msg="Something went wrong, Try Again..."
+			return render(request,"localshop/singup.html",{'status':True,'msg':msg})
 	else:
 		return render(request,"localshop/singup.html")
 
