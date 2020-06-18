@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
-from .models import userProfile, cart, orderDetails, check_product_stock
+from .models import userProfile, cart, orderDetails, check_product_stock, reviewDetails
 from shop.models import products
 from django.db import transaction
 from django.db.models import F
@@ -23,6 +23,27 @@ def autocomplete(request):
 
 def index(request):
 	return render(request,"localshop/index.html")
+
+def addreview(request):
+	pid = request.GET['id']
+	star = request.GET['star']
+	review = request.GET['review']
+	product=products.objects.get(id=pid)
+	try:
+		chkreview=reviewDetails.objects.get(userid=request.user,productid=product)
+	except reviewDetails.DoesNotExist:
+		chkreview = None
+	if chkreview:
+		chkreview.stars=star
+		chkreview.review=review
+		chkreview.save()
+		return HttpResponse('Review Updated')
+	else:
+		instance=reviewDetails(userid=request.user,productid=product,stars=int(star),review=review)
+		instance.save()
+		return HttpResponse('Review Added')
+	
+	return HttpResponse('Something went wrong, TryAgain')
 
 def login(request):
 	if request.method == 'POST':
@@ -235,4 +256,19 @@ def single(request):
 	product=products.objects.filter(id=pid)
 	tstar=0
 	soldcount=0
-	return render(request,"localshop/single.html",{'product':product})
+	buyed=False
+	if not request.user.is_anonymous:
+		try:
+			orderlist=orderDetails.objects.filter(userid_id=request.user,status=True,productid_id=pid)
+		except orderDetails.DoesNotExist:
+			orderlist=None
+		if orderlist:
+			buyed=True
+	try:
+		chkreview=reviewDetails.objects.filter(productid=pid)
+		for rev in chkreview:
+			tstar+=rev.stars
+	except reviewDetails.DoesNotExist:
+		chkreview = None
+
+	return render(request,"localshop/single.html",{'product':product,'buyed':buyed,'chkreview':chkreview})

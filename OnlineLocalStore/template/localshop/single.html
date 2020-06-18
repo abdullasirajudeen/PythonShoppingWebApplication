@@ -187,6 +187,7 @@
                      <h3>Description</h3>
                      <p><span class="item_price">{{ pro.description }}
                      </p>
+                     <h3>Quantity</h3>
                      <div class="input-group col-md-6 d-flex mb-3">
                   <span class="input-group-btn mr-2">
                      <button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
@@ -212,7 +213,9 @@
                               Login to Buy
                               </button>
                               {% endif %}
-                         
+                        {% if buyed == True %}
+                             <a class="btn btn-success btn-green" data-id="{{ pro.id }}" href="#" id="open-review-box">Leave a Review</a>
+                        {% endif %}
                         </div>
                      </div>
                      
@@ -224,9 +227,92 @@
                </div>
             </div>
          </div>
-         {% endfor %}
+        
+         </br>
+         <div  class="container">
+            <div class="row" id="post-review-box" style="display:none;">
+                                <div class="col-md-12">
+                            
+                                        <input id="ratings-hidden" name="rating1" type="hidden"> 
+                                        <textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5" maxlength="199"></textarea>
+                        
+                                        <div class="text-right">
+                                            <div class="stars starrr" data-rating="0"></div>
+                                            
+
+                                        <fieldset class="rating" name="rating1" >
+                                            <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"><span class="fas fa-star"></span></label>
+                                            <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"><span class="fas fa-star"></span></label>
+                                            <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"><span class="fas fa-star"></span></label>
+                                            <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"><span class="fas fa-star"></span></label>
+                                            <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"><span class="fas fa-star"></span></label>
+                                           
+                                        </fieldset>
+
+                                            <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
+
+                                            <span class="glyphicon glyphicon-remove"></span>Cancel</a>
+                                            <button class="btn btn-success btn-lg add-review" data-id="{{ pro.id }}" >Save</button>
+                                        </div>
+                                    
+                               
+
+                </div>   
+        </div>
+    </div>
+     {% endfor %}
       </section>
-     
+     <section class="ftco-section1">
+        <div class="container">
+            <div class="row justify-content-center">
+          <div class="heading-section text-center ftco-animate">
+<h2 class="mb-4">Product Reviews</h2></div></div></div>
+<div  class="container" id="overflowTest">
+
+        <!-- comments container -->
+                <div class="comment_block">
+                 <!-- new comment -->
+                 <div class="new_comment">
+                    {% if chkreview %}
+                    <!-- build comment --> 
+                    {% for review in chkreview %}  
+                    <ul class="user_comment">
+
+                        <!-- current #{user} avatar -->
+                        <div class="user_avatar">
+                            <img src="{{ review.userid.userprofile.img.url }}" height="73" width="73" >
+                            
+                                <span class="text-left mr-4">
+                                    {% with ''|center:review.stars as range %}
+                                    {% for i in range %}  
+                                    <a href="#"><span class="fas fa-star "></span></a>
+                                    {% endfor %}
+                                    {% endwith %}
+                                </span>
+                        
+                        </div><!-- the comment body -->
+                        <div class="comment_body">
+                            <p><span class="ftco-heading-2"><b>{{ review.userid.first_name }}</b> :</span></p><div class="cut-text">
+{{ review.review }}
+</div> 
+                        </div>
+                    </ul>
+                    {% endfor %}
+                     {% else %}
+
+                     <ul class="user_comment">
+
+                        <div class="comment_body">
+                            <p><span class="ftco-heading-2"><b>No Reviews yet..!</b></p>
+                        </div>
+                    </ul>
+                      {% endif %}
+                 </div>
+                </div>
+
+     </div>
+
+    </section>
       <footer class="py-lg-4 py-md-3 py-sm-3 py-3 text-center">
          <div class="copy-agile-right">
             <p> 
