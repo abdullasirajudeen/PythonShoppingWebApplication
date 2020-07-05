@@ -153,6 +153,7 @@
                   <div class="privacy about">
                      <h3><span>Order History</span></h3>
                      <div class="checkout-right">
+                        {% if orderlist %}  
                         <h4>Your have ordered <span>{{  orderlist|length }}  Products</span></h4>
                         <table class="timetable_sub">
                            <thead>
@@ -188,7 +189,35 @@
                                
                            </tbody>
                         </table>
+                        {% else %}
 
+                        <h4>Your have ordered <span>{{  orderlist|length }}  Products</span></h4>
+                        <table class="timetable_sub">
+                           <thead>
+                              <tr>
+                                 <th>SL No.</th>
+                                 <th>Product</th>
+                                 <th>Quality</th>
+                                 <th>Product Name</th>
+                                 <th>Date</th>
+                              </tr>
+                           </thead>
+                          <tbody>
+                           
+             
+                              <tr id="myElement" class="text-center">
+                          <td colspan="6">
+                           <h4>You Haven't Purchased Anything..!</h4>
+                           <p class="lead">
+                                 <a class="btn btn-primary " href="/" role="button">Start Shopping</a></p>
+                          </td>
+                        </tr>
+                               
+                           </tbody>
+                        </table>
+
+
+                        {% endif %}
                      </div>
                   
                   </div>

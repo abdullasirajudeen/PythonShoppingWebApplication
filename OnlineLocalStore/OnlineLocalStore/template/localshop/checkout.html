@@ -245,22 +245,23 @@
                                           {% csrf_token %}
                                           <label class="control-label">Order type: </label>
                                           <select class="form-control option-w3ls" name="optradio">
-                                             <option value="Home Delivery">Home Delivery</option>
+                                             <option selected="" value="Home Delivery">Home Delivery</option>
                                              <option value="I will Pick">I will Pick</option>
                                           </select>
-                                          <div class="clear"> </div>
+                                          <div class="checkout-right-basket">
+
+                              <input type="submit" class="btn btn-primary" value="Confirm Order">
+                           </div>
+                    
+                        </form>
                                        </div>
+                                       <div class="clear"> </div>
                                     </div>
                                     
                                  </div>
                               </section>
                            
-                           <div class="checkout-right-basket">
-
-                              <input type="submit" class="btn btn-primary" value="Confirm Order">
-                           </div>
-                        </div>
-                        </form>
+                           
                         <div class="clearfix"> </div>
                         <div class="clearfix"></div>
                      </div>

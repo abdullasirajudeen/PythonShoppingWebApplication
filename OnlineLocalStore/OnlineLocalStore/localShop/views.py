@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
-from .models import userProfile, cart, orderDetails, check_product_stock
+from .models import userProfile, cart, orderDetails, check_product_stock, reviewDetails
 from shop.models import products
 from django.db import transaction
 from django.db.models import F
@@ -24,6 +24,27 @@ def autocomplete(request):
 def index(request):
 	return render(request,"localshop/index.html")
 
+def addreview(request):
+	pid = request.GET['id']
+	star = request.GET['star']
+	review = request.GET['review']
+	product=products.objects.get(id=pid)
+	try:
+		chkreview=reviewDetails.objects.get(userid=request.user,productid=product)
+	except reviewDetails.DoesNotExist:
+		chkreview = None
+	if chkreview:
+		chkreview.stars=star
+		chkreview.review=review
+		chkreview.save()
+		return HttpResponse('Review Updated')
+	else:
+		instance=reviewDetails(userid=request.user,productid=product,stars=int(star),review=review)
+		instance.save()
+		return HttpResponse('Review Added')
+	
+	return HttpResponse('Something went wrong, TryAgain')
+
 def login(request):
 	if request.method == 'POST':
 		password=request.POST['password']
@@ -33,7 +54,7 @@ def login(request):
 			auth.login(request,user)
 			return redirect('/')
 		else :
-			return redirect('/login')
+			return render(request,"localshop/index.html",{"logmsg":"Incorrect username or Password..Try Again..!"})
 	else:
 		return render(request,"localshop/index.html")
 
@@ -47,7 +68,10 @@ def search(request):
 	except:
 		name = ""	
 	trate=3
-	product=products.objects.filter(isactive=True,pname__startswith=name)
+	try:
+		product=products.objects.filter(isactive=True,pname__startswith=name)
+	except:
+		product=None
 	return render(request,"localshop/search.html",{'product':product})
 
 def checkout(request):
@@ -176,7 +200,10 @@ def shopsnearme(request):
 	except:
 		cat = 'All'	
 	trate=3
-	shops=User.objects.filter(userprofile__is_store=True)
+	try:
+		shops=User.objects.filter(userprofile__is_store=True)
+	except:
+		shops=None
 	return render(request,"localshop/shopsnearme.html",{'product':shops})
 
 def shopproducts(request):
@@ -184,8 +211,11 @@ def shopproducts(request):
 		sid = request.GET['id']
 	except:
 		print("no id got as parameter")
-	shop=User.objects.get(id=sid)
-	product=products.objects.filter(isactive=True,owner=shop)
+	try:
+		shop=User.objects.get(id=sid)
+		product=products.objects.filter(isactive=True,owner=shop)
+	except:
+		product=None
 	return render(request,"localshop/shopproducts.html",{'product':product})
 
 def signup(request):
@@ -209,8 +239,11 @@ def signup(request):
 			return redirect('/')
 		except Exception as e:
 			print(e)
-			print('something wrong')
-			return render(request,"localshop/singup.html")
+			if str(e)[0:44]=="UNIQUE constraint failed: auth_user.username":
+				msg="Email Already Taken.Try Different One..!"
+			else:
+				msg="Something went wrong, Try Again..."
+			return render(request,"localshop/singup.html",{'status':True,'msg':msg})
 	else:
 		return render(request,"localshop/singup.html")
 
@@ -226,4 +259,19 @@ def single(request):
 	product=products.objects.filter(id=pid)
 	tstar=0
 	soldcount=0
-	return render(request,"localshop/single.html",{'product':product})
+	buyed=False
+	if not request.user.is_anonymous:
+		try:
+			orderlist=orderDetails.objects.filter(userid_id=request.user,status=True,productid_id=pid)
+		except orderDetails.DoesNotExist:
+			orderlist=None
+		if orderlist:
+			buyed=True
+	try:
+		chkreview=reviewDetails.objects.filter(productid=pid)
+		for rev in chkreview:
+			tstar+=rev.stars
+	except reviewDetails.DoesNotExist:
+		chkreview = None
+
+	return render(request,"localshop/single.html",{'product':product,'buyed':buyed,'chkreview':chkreview})

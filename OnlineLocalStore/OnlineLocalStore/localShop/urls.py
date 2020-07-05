@@ -17,5 +17,6 @@ urlpatterns = [
     path('shopsnearme', views.shopsnearme, name='shopsnearme'),
     path('orderhistory', views.orderhistory, name='order_history'),
     path('shopproducts', views.shopproducts, name='shopproducts'),
+    path('addreview', views.addreview,name='add_review'),
     url(r'^ajax/autocomplete/$', views.autocomplete, name='ajax_autocomplete')
 ]
