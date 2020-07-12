@@ -16,3 +16,7 @@ class products(models.Model):
 	offerprice = models.IntegerField(blank=True,null=True)
 	created_at = models.DateField(auto_now_add=True)
 	owner = models.ForeignKey(User,default=None,on_delete=models.CASCADE)
+
+	def __str__(self):
+		return self.pname
+		
