@@ -18,6 +18,10 @@ class userProfile(models.Model):
 	img = models.ImageField(upload_to='localshop/pics', default='default.jpg')
 	is_active = models.BooleanField(default=True)
 	license_no = models.CharField(max_length=20,default='')
+
+	def __str__(self):
+		return self.user.username
+		
 	
 def create_profile(sender, **kwargs):
 	if kwargs['created']:
