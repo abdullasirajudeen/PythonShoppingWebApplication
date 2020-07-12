@@ -12,7 +12,7 @@ from django.http import JsonResponse
 
 def autocomplete(request):
     if request.is_ajax():
-        queryset = products.objects.filter(pname__startswith=request.GET.get('search', None))
+        queryset = products.objects.filter(pname__icontains=request.GET.get('search', None),isactive=True)
         list = []        
         for i in queryset:
             list.append(i.pname)
