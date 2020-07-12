@@ -9,7 +9,15 @@
    -->
 
 <!-- Slideshow 4 -->
-         <div class="slider text-center">
+         <div class="slider text-center"  >
+                <div class="bottom-info" style="padding-top: 1px;">
+                  <form action="search" method="get">
+
+                     <input class="form-control mr-sm-2 id_input" id="id_input" type="search" name="pname" placeholder="Type Product Name">                
+
+                   <button class="btn btn-primary" type="submit">Search</button>
+                  </form>
+               </div>
 
             <div class="callbacks_container">
 
@@ -17,7 +25,7 @@
                   <li>
                      <div class="slider-img one-img">
                         <div class="container">
-                           <div class="slider-info ">
+                           <div class="slider-info " style="">
                               <h5>Search The Best Product <br>Near You</h5>
                               
                            </div>
@@ -27,31 +35,22 @@
                   <li>
                      <div class="slider-img two-img">
                         <div class="container">
-                           <div class="slider-info ">
-                              <h5>Your Complete Local Store<br>Search</h5>
+                           <div class="slider-info " style="">
+                              <h5>Your Complete Local Store Search</h5>
                               
                            </div>
                            </div>
                         </div>
-                     </div>
+                   
                   </li>
                </ul>
-              <center><div class="bottom-info">
-
-   <form action="search" method="get">
-
-      <input class="form-control mr-sm-2 id_input" id="id_input" type="search" name="pname" placeholder="Type Product Name">                
-
-    <button class="btn btn-primary" type="submit">Search</button>
-   </form>
-</div></center> 
+             </div>
             </div>
             <!-- This is here just to demonstrate the callbacks -->
             <!-- <ul class="events">
                <li>Example 4 callback events</li>
                </ul>-->
             <div class="clearfix"></div>
-         </div>
-      </div>
+         
 
        {% endblock %}
