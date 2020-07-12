@@ -388,7 +388,6 @@ list-style: none;
 }*/
 .callbacks_container {
 position: relative;
-float: left;
 width: 100%;
 }
 .callbacks {
@@ -436,9 +435,9 @@ padding: 0 0 0;
 position: absolute;
 width: 70%;
 left: 50%;
--ms-transform: translateX(-50%) translateY(1250%);
--webkit-transform: translate(-50%,1250%);
-transform: translate(-50%,1250%);
+-ms-transform: translateX(-50%) translateY(1100%);
+-webkit-transform: translate(-50%,1100%);
+transform: translate(-50%,1100%);
 }
 
 .slider-info {
