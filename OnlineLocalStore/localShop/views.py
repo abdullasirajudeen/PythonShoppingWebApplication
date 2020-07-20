@@ -25,6 +25,8 @@ def index(request):
 	return render(request,"localshop/index.html")
 
 def addreview(request):
+	if request.user.is_anonymous:
+		return redirect('/')
 	pid = request.GET['id']
 	star = request.GET['star']
 	review = request.GET['review']
@@ -75,6 +77,8 @@ def search(request):
 	return render(request,"localshop/search.html",{'product':product})
 
 def checkout(request):
+	if request.user.is_anonymous:
+		return redirect('/')
 	try:
 		cartlist=cart.objects.filter(userid=request.user.id)
 	except cart.DoesNotExist:
@@ -92,6 +96,8 @@ def checkout(request):
 	return render(request,"localshop/checkout.html",{'product':cartlist,'subtotal':subtotal,'total':total})
 
 def orderstatus(request):
+	if request.user.is_anonymous:
+		return redirect('/')
 	user = request.user
 	paymode=request.POST['optradio']
 	flag=False
@@ -140,6 +146,8 @@ def orderstatus(request):
 		return render(request,"localshop/order_status.html",{'status':flag})
 
 def viewcart(request):
+	if request.user.is_anonymous:
+		return redirect('/')
 	try:
 		cartlist=cart.objects.filter(userid=request.user.id)
 	except cart.DoesNotExist:
@@ -159,7 +167,8 @@ def viewcart(request):
 
 
 def removefromcart(request):
-	
+	if request.user.is_anonymous:
+		return redirect('/')
 	pid = request.GET['id']
 	product=products.objects.get(id=pid)
 	try:
@@ -176,7 +185,8 @@ def removefromcart(request):
 		return HttpResponse('No such Product in Cart')
 
 def addtocart(request):
-	
+	if request.user.is_anonymous:
+		return redirect('/')
 	pid = request.GET['id']
 	qty = request.GET['qty']
 	product=products.objects.get(id=pid)
@@ -195,6 +205,8 @@ def addtocart(request):
 			return HttpResponse('Something went wrong, TryAgain')
 
 def shopsnearme(request):
+	if request.user.is_anonymous:
+		return redirect('/')
 	try:
 		cat = request.GET['cat']
 	except:
@@ -248,6 +260,8 @@ def signup(request):
 		return render(request,"localshop/singup.html")
 
 def orderhistory(request):
+	if request.user.is_anonymous:
+		return redirect('/')
 	try:
 		orderlist=orderDetails.objects.filter(userid_id=request.user,status=True)
 	except orderlist.DoesNotExist:

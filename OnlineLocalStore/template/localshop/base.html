@@ -87,10 +87,16 @@
                      <li class="nav-item active">
                         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                      </li>
+                     {% if user.is_authenticated and user.userprofile.is_store == True %}
+                     <li class="nav-item">
+                        <a href="/shop/index" class="nav-link">Shop Manage</a>
+                     </li>
+                     {% endif %}
+                     {% if user.is_authenticated %}
                      <li class="nav-item">
                         <a href="shopsnearme" class="nav-link">Shops Near Me</a>
                      </li>
-
+                     {% endif %}
                      {% if user.is_authenticated and user.userProfile.is_store %}
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

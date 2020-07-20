@@ -15,12 +15,20 @@ class EditProductForm(ModelForm):
         fields = ['pname','ptype','description', 'stock', 'price', 'img1', 'img2', 'img3', 'offer','offerprice','isactive']
 
 def single(request):
+	if request.user.is_anonymous:
+		return redirect('/login')
+	if not request.user.userprofile.is_store:
+		return redirect('/')
 	current_user = request.user
 	pid = request.GET['id']
 	product=products.objects.filter(owner=request.user,id=pid)
 	return render(request,"shop/single.html",{'product':product})
 
 def addproduct(request):
+	if request.user.is_anonymous:
+		return redirect('/login')
+	if not request.user.userprofile.is_store:
+		return redirect('/')
 	current_user = request.user
 	form = AddProductForm(request.POST,request.FILES or None)
 	context={
@@ -48,6 +56,8 @@ def addproduct(request):
 
 
 def login(request):
+	if not request.user.is_anonymous:
+		return redirect('/shop/index')
 	if request.method == 'POST':
 		password=request.POST['password']
 		username=request.POST['username']
@@ -64,6 +74,8 @@ def login(request):
 		return render(request,"shop/login.html")
 
 def signup(request):
+	if not request.user.is_anonymous:
+		return redirect('/shop/index')
 	if request.method == 'POST':
 		first_name=request.POST['firstname']
 		last_name=request.POST['lastname']
@@ -94,15 +106,25 @@ def signup(request):
 		return render(request,"shop/singup.html")
 
 def logout(request):
+	if request.user.is_anonymous:
+		return redirect('/login')
 	auth.logout(request)
 	return redirect('/')
 
 def index(request):
+	if request.user.is_anonymous:
+		return redirect('/login')
+	if not request.user.userprofile.is_store:
+		return redirect('/')
 	current_user = request.user
 	product=products.objects.filter(owner=request.user)
 	return render(request,"shop/index.html",{'product':product})#temporary
 
 def orderhistory(request):
+	if request.user.is_anonymous:
+		return redirect('/login')
+	if not request.user.userprofile.is_store:
+		return redirect('/')
 	try:
 		orderlist=orderDetails.objects.filter(productid__owner=request.user.id,status=True)
 	except orderDetails.DoesNotExist:
@@ -110,6 +132,10 @@ def orderhistory(request):
 	return render(request,"shop/history.html",{'orderlist':orderlist})
 
 def neworders(request):
+	if request.user.is_anonymous:
+		return redirect('/login')
+	if not request.user.userprofile.is_store:
+		return redirect('/')
 	try:
 		orderlist=orderDetails.objects.filter(productid__owner=request.user.id,status=False)
 	except orderDetails.DoesNotExist:
@@ -117,6 +143,10 @@ def neworders(request):
 	return render(request,"shop/orders.html",{'orderlist':orderlist})
 
 def viewproducts(request):
+	if request.user.is_anonymous:
+		return redirect('/login')
+	if not request.user.userprofile.is_store:
+		return redirect('/')
 	cid=request.GET['id']
 	cuser=User.objects.get(id=cid)
 	try:
@@ -133,6 +163,10 @@ def viewproducts(request):
 	return render(request,"shop/viewproducts.html",{'orderlist':orderlist,'total':total})
 
 def ordercompleted(request):
+	if request.user.is_anonymous:
+		return redirect('/login')
+	if not request.user.userprofile.is_store:
+		return redirect('/')
 	uid = request.GET['id']
 	cuser=User.objects.get(id=uid)
 	try:
@@ -149,6 +183,10 @@ def ordercompleted(request):
 		return redirect('/shop/neworders')
 
 def editproduct(request):
+	if request.user.is_anonymous:
+		return redirect('/login')
+	if not request.user.userprofile.is_store:
+		return redirect('/')
 	pid = request.GET['id']
 	if request.method == 'POST':
 		current=products.objects.get(id=pid)
@@ -175,6 +213,10 @@ def editproduct(request):
 		return render(request,"shop/addproduct.html",context)
 
 def marksold(request):
+	if request.user.is_anonymous:
+		return redirect('/login')
+	if not request.user.userprofile.is_store:
+		return redirect('/')
 	pid = request.GET['id']
 	try:
 		product=products.objects.get(owner=request.user,id=pid)
@@ -189,6 +231,10 @@ def marksold(request):
 		return redirect('/shop/index')
 
 def deleteproduct(request):
+	if request.user.is_anonymous:
+		return redirect('/login')
+	if not request.user.userprofile.is_store:
+		return redirect('/')
 	pid = request.GET['id']
 	try:
 		product=products.objects.get(owner=request.user,id=pid)
