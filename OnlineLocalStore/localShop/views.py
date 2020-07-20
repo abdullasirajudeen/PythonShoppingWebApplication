@@ -69,9 +69,11 @@ def search(request):
 		name=request.GET['pname']
 	except:
 		name = ""	
-	trate=3
 	try:
-		product=products.objects.filter(isactive=True,pname__startswith=name)
+		if request.user.is_anonymous:
+			product=products.objects.filter(isactive=True,pname__startswith=name).order_by('id')
+		else:
+			product=products.objects.filter(isactive=True,pname__startswith=name,owner__userprofile__pincode__range=[int(request.user.userprofile.pincode)-2,int(request.user.userprofile.pincode)+2]).order_by('id')
 	except:
 		product=None
 	return render(request,"localshop/search.html",{'product':product})
@@ -213,7 +215,7 @@ def shopsnearme(request):
 		cat = 'All'	
 	trate=3
 	try:
-		shops=User.objects.filter(userprofile__is_store=True)
+		shops=User.objects.filter(userprofile__is_store=True,is_active=True,userprofile__pincode__range=[int(request.user.userprofile.pincode)-2,int(request.user.userprofile.pincode)+2]).order_by('id')
 	except:
 		shops=None
 	return render(request,"localshop/shopsnearme.html",{'product':shops})
