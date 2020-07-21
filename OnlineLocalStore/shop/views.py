@@ -14,6 +14,9 @@ class EditProductForm(ModelForm):
         model = products
         fields = ['pname','ptype','description', 'stock', 'price', 'img1', 'img2', 'img3', 'offer','offerprice','isactive']
 
+def contact(request):
+	return render(request,"localshop/contact.html")
+
 def single(request):
 	if request.user.is_anonymous:
 		return redirect('/login')

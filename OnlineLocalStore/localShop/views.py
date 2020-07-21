@@ -10,6 +10,9 @@ from django.http import HttpResponse
 # Create your views here.
 from django.http import JsonResponse
 
+def contact(request):
+	return render(request,"localshop/contact.html")
+
 def autocomplete(request):
     if request.is_ajax():
         queryset = products.objects.filter(pname__icontains=request.GET.get('search', None),isactive=True)
