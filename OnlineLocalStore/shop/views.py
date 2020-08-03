@@ -3,6 +3,9 @@ from django.contrib.auth.models import User, auth
 from localShop.models import userProfile,orderDetails
 from .models import products
 from django.forms import ModelForm
+from django.views.generic import View
+from OnlineLocalStore.utils import render_to_pdf
+from django.http import HttpResponse
 # Create your views here.
 class AddProductForm(ModelForm):
     class Meta:
@@ -13,6 +16,44 @@ class EditProductForm(ModelForm):
     class Meta:
         model = products
         fields = ['pname','ptype','description', 'stock', 'price', 'img1', 'img2', 'img3', 'offer','offerprice','isactive']
+
+def invoice(request):
+	if request.user.is_anonymous:
+		return redirect('/login')
+	elif request.user.userprofile.is_store==False:
+		return redirect('/')
+	cuser = request.GET['id']
+	orderlist=None
+	try:
+		orderlist=orderDetails.objects.filter(productid__owner=request.user.id,status=False,userid=cuser)
+	except orderDetails.DoesNotExist:
+		orderlist = None
+		print("nome")
+	total=0
+	bill=0
+	for item in orderlist:
+		bill=str(item.productid.id)+""+str(item.userid.id)
+		address=item.address
+		date=item.date
+		paymode=item.paymode
+		sname=item.productid.owner.first_name
+		uname=item.userid.first_name
+		if item.productid.offer:
+			total=total+item.productid.offerprice*item.quantity
+		else:
+			total=total+item.productid.price*item.quantity
+	data={
+	'address':address,
+	'paymode':paymode,
+	'olist':orderlist,
+	'total':total,
+	'sname':sname,
+	'uname':uname,
+	'date':date,
+	'bill':bill,
+	}
+	pdf = render_to_pdf('pdf/invoice.html',data)
+	return HttpResponse(pdf, content_type='application/pdf')
 
 def contact(request):
 	return render(request,"localshop/contact.html")

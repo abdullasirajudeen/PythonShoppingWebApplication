@@ -159,8 +159,8 @@
                                  <td class="invert">{{ pro.list|length}}</td>
                                  <td class="invert">{{ pro.list.0.paymode }}</td>
                                  <td class="invert"> <a href="/shop/viewproducts?id={{ pro.list.0.userid.id }}" class="btn btn-primary"data-id="{{ item.id }}">View Products</a>
-                              
-                              </button></td>
+                                 <a href="/shop/invoice?id={{ pro.list.0.userid.id }}" class="btn btn-primary"data-id="{{ item.id }}">Invoice</a>
+                              </td>
                               </tr>
                               
                                {% endfor %}
