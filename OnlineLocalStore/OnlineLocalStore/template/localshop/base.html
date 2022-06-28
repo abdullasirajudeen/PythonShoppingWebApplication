@@ -127,8 +127,11 @@
                </div>
             </nav>
          </div>
-
-
+ {% if logmsg %}
+<script type="text/javascript">
+    alert("{{ logmsg }}")
+</script>
+{% endif %}
  {% block content %}
      
     {% endblock %}

@@ -118,7 +118,7 @@
                      <a href="/shop/index">Home</a>
                      <span>/ /</span>
                   </li>
-                  <li>New_Orders</li>
+                  <li>Order_History</li>
                </ul>
             </div>
          </div>
@@ -130,46 +130,46 @@
             <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
                <div class="shop_inner_inf">
                   <div class="privacy about">
-                     <h3><span>New Orders</span></h3>
+                      <h3><span>Order History</span></h3>
                      <div class="checkout-right">
-                        {% regroup orderlist by userid as order_list %}
-                        <h4>You have Orders from: <span>{{  order_list|length }}  Users</span></h4>
+                         <h4>You have Fulfilled these orders</span></h4>
                         <table class="timetable_sub">
                            <thead>
                               <tr>
                                  <th>SL No.</th>
-                                 <th>Name</th>
-                                 <th>Address</th>
-                                 <th>No :of Products</th>
-                                 <th>Delivery Mode</th>
-                                 
-                                  <th>&nbsp;</th>
+                                 <th>Product</th>
+                                 <th>Quality</th>
+                                 <th>Product Name</th>
+                                 <th>Date</th>
                               </tr>
                            </thead>
                           <tbody>
-                           {% if orderlist %}  
-                           {% regroup orderlist by userid as order_list %}
-                              {% for pro in order_list %}  
-                                 
+                           {% if orderlist %}
+                              {% for pro in orderlist %}  
+             
                               <tr class="">
                                  <td class="invert">{{  forloop.counter }}</td>
-                                 <td class="invert">{{ pro.list.0.userid.first_name  }}</td>
-                                 <td class="invert">{{ pro.list.0.address|truncatechars:20  }}</td>
+                                 <td class="invert-image"><a href="single?id={{ pro.id }}"><img height="92" width="91" src="{{ pro.productid.img1.url}}" alt=" " class="img-responsive"></a></td>
+                                 <td class="invert">
+                                    <div class="quantity">
+                                       <div class="quantity-select">
+                                          
+                                          <div class="entry value"><span>{{ pro.quantity }}</span></div>
+                                          
+                                       </div>
+                                    </div>
+                                 </td>
+                                 <td class="invert">{{ pro.productid.pname }}</td>
+                                 <td class="invert">{{ pro.date }}</td>
                                  
-                                 <td class="invert">{{ pro.list|length}}</td>
-                                 <td class="invert">{{ pro.list.0.paymode }}</td>
-                                 <td class="invert"> <a href="/shop/viewproducts?id={{ pro.list.0.userid.id }}" class="btn btn-primary"data-id="{{ item.id }}">View Products</a>
-                              
-                              </button></td>
                               </tr>
-                              
+                               
                                {% endfor %}
-                                 
-                        {% else %}
+                                {% else %}
 
                               <tr id="myElement" class="text-center">
                           <td colspan="6">
-                           <h4>No New Orders..!</h4>
+                           <h4>Your Order History is Empty..!</h4>
                           
                           </td>
                         </tr>
@@ -182,11 +182,7 @@
                   
                   </div>
                </div>
-               <div class="checkout-right-basket">
-                           {% if cartlist  %}
-                              <a href="checkout">Confirm Order</a>
-                              {% endif %}
-                           </div><br>
+               <br>
             </div>
             <div class="checkout-right-basket">
                               

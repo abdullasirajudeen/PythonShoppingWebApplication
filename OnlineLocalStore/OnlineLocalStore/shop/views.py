@@ -57,9 +57,9 @@ def login(request):
 				auth.login(request,user)
 				return redirect('/shop/index')
 			else :
-				return redirect('/shop/login')
+				return render(request,"localshop/index.html",{"logmsg":"You are not a Store Keeper..Redirecting You to User Login..!"})
 		else :
-			return redirect('/shop/login')
+			return render(request,"shop/login.html",{"logmsg":"Incorrect username or Password..Try Again..!"})
 	else:
 		return render(request,"shop/login.html")
 
@@ -102,6 +102,13 @@ def index(request):
 	product=products.objects.filter(owner=request.user)
 	return render(request,"shop/index.html",{'product':product})#temporary
 
+def orderhistory(request):
+	try:
+		orderlist=orderDetails.objects.filter(productid__owner=request.user.id,status=True)
+	except orderDetails.DoesNotExist:
+		orderlist = None
+	return render(request,"shop/history.html",{'orderlist':orderlist})
+
 def neworders(request):
 	try:
 		orderlist=orderDetails.objects.filter(productid__owner=request.user.id,status=False)
@@ -116,18 +123,26 @@ def viewproducts(request):
 		orderlist=orderDetails.objects.filter(productid__owner=request.user.id,status=False,userid=cuser)
 	except orderDetails.DoesNotExist:
 		orderlist = None
-	return render(request,"shop/viewproducts.html",{'orderlist':orderlist})
+	total=0
+	if orderlist:
+		for item in orderlist:
+			if item.productid.offer:
+				total=total+item.productid.offerprice*item.quantity
+			else:
+				total=total+item.productid.price*item.quantity
+	return render(request,"shop/viewproducts.html",{'orderlist':orderlist,'total':total})
 
 def ordercompleted(request):
 	uid = request.GET['id']
 	cuser=User.objects.get(id=uid)
 	try:
-		orderlist=orderDetails.objects.get(productid__owner=request.user.id,status=False,userid=cuser)
-	except orderlist.DoesNotExist:
+		orderlist=orderDetails.objects.filter(productid__owner=request.user.id,status=False,userid=cuser)
+	except orderDetails.DoesNotExist:
 		orderlist = None
 	if orderlist:
-		orderlist.status = True
-		orderlist.save()
+		for order in orderlist:
+			order.status = True
+			order.save()
 		return redirect('/shop/neworders')
 	else:
 		print('Something went wrong, TryAgain')
